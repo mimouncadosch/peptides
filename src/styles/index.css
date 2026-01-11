@@ -1,0 +1,314 @@
+/* Global Styles and Layout */
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  line-height: 1.6;
+}
+
+#root {
+  min-height: 100vh;
+  position: relative;
+}
+
+/* Main App Container */
+.app-container {
+  position: relative;
+  z-index: 1;
+  min-height: 100vh;
+  padding: var(--spacing-lg);
+  max-width: 1800px;
+  margin: 0 auto;
+}
+
+/* Header Styles */
+.app-header {
+  text-align: center;
+  margin-bottom: var(--spacing-xl);
+  padding: var(--spacing-lg) 0;
+  animation: fadeIn 1s ease-out;
+}
+
+.app-title {
+  margin-bottom: var(--spacing-sm);
+  animation: glow-pulse 3s ease-in-out infinite;
+}
+
+.app-subtitle {
+  font-family: 'Share Tech Mono', monospace;
+  color: var(--neon-purple);
+  font-size: 1.1rem;
+  letter-spacing: 0.2em;
+  text-shadow: 0 0 10px var(--neon-purple);
+  margin-top: var(--spacing-sm);
+}
+
+.app-tagline {
+  font-family: 'VT323', monospace;
+  color: var(--neon-magenta);
+  font-size: 1.3rem;
+  margin-top: var(--spacing-xs);
+  opacity: 0.8;
+}
+
+/* Filter Bar Styles */
+.filter-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-sm);
+  justify-content: center;
+  margin-bottom: var(--spacing-xl);
+  padding: var(--spacing-lg);
+  animation: slideInLeft 0.8s ease-out;
+}
+
+.filter-button {
+  /* Inherits from .neon-button in retro.css */
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.filter-button .icon {
+  font-size: 1.2em;
+}
+
+/* Peptide Grid Layout */
+.peptide-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+  gap: var(--spacing-lg);
+  margin-bottom: var(--spacing-xl);
+  animation: fadeIn 1.2s ease-out;
+}
+
+.peptide-grid.empty {
+  grid-template-columns: 1fr;
+  text-align: center;
+  padding: var(--spacing-xl);
+}
+
+.empty-state {
+  color: var(--neon-cyan);
+  font-size: 1.2rem;
+  opacity: 0.7;
+  animation: pulse 2s infinite;
+}
+
+/* Peptide Card Styles */
+.peptide-card {
+  animation: slideInGlow 0.6s ease-out backwards;
+}
+
+.peptide-card:nth-child(1) { animation-delay: 0.1s; }
+.peptide-card:nth-child(2) { animation-delay: 0.2s; }
+.peptide-card:nth-child(3) { animation-delay: 0.3s; }
+.peptide-card:nth-child(4) { animation-delay: 0.4s; }
+.peptide-card:nth-child(5) { animation-delay: 0.5s; }
+.peptide-card:nth-child(6) { animation-delay: 0.6s; }
+
+.peptide-card-header {
+  margin-bottom: var(--spacing-sm);
+  border-bottom: 1px solid var(--neon-cyan);
+  padding-bottom: var(--spacing-sm);
+}
+
+.peptide-name {
+  margin: var(--spacing-xs) 0;
+  font-size: 1.8rem;
+}
+
+.peptide-fullname {
+  font-size: 0.9rem;
+  color: var(--neon-purple);
+  opacity: 0.8;
+  margin: var(--spacing-xs) 0;
+}
+
+.peptide-description {
+  margin: var(--spacing-sm) 0;
+  line-height: 1.7;
+  color: rgba(0, 255, 255, 0.9);
+}
+
+.use-cases {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-xs);
+  margin: var(--spacing-sm) 0;
+}
+
+.use-case-tag {
+  display: inline-block;
+  padding: 0.4rem 0.8rem;
+  background: rgba(157, 0, 255, 0.2);
+  border: 1px solid var(--neon-purple);
+  color: var(--neon-purple);
+  font-size: 0.75rem;
+  font-family: 'Orbitron', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-radius: 2px;
+}
+
+.detailed-info {
+  margin-top: var(--spacing-md);
+  padding-top: var(--spacing-md);
+  border-top: 1px solid rgba(255, 0, 255, 0.3);
+  animation: fadeIn 0.3s ease-out;
+}
+
+.info-section {
+  margin-bottom: var(--spacing-md);
+}
+
+.info-section h3 {
+  margin-bottom: var(--spacing-xs);
+  font-size: 1rem;
+}
+
+.info-section p {
+  margin: var(--spacing-xs) 0;
+  line-height: 1.6;
+  opacity: 0.9;
+}
+
+.info-item {
+  margin-bottom: var(--spacing-sm);
+}
+
+.info-label {
+  color: var(--neon-magenta);
+  font-weight: bold;
+  display: inline-block;
+  min-width: 120px;
+}
+
+.studies-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.study-item {
+  margin-bottom: var(--spacing-sm);
+  padding: var(--spacing-sm);
+  background: rgba(0, 255, 255, 0.05);
+  border-left: 2px solid var(--neon-cyan);
+}
+
+.study-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: bold;
+  margin-bottom: var(--spacing-xs);
+}
+
+.study-link::after {
+  content: '↗';
+  font-size: 0.9em;
+}
+
+.study-summary {
+  font-size: 0.9rem;
+  opacity: 0.8;
+  margin-top: var(--spacing-xs);
+}
+
+.study-year {
+  color: var(--neon-yellow);
+  font-weight: bold;
+}
+
+.toggle-button {
+  width: 100%;
+  margin-top: var(--spacing-md);
+  padding: var(--spacing-sm);
+  background: transparent;
+  border: 1px solid var(--neon-cyan);
+  color: var(--neon-cyan);
+  font-family: 'Orbitron', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 0.85rem;
+}
+
+.toggle-button:hover {
+  background: rgba(0, 255, 255, 0.1);
+  box-shadow: 0 0 10px var(--neon-cyan);
+}
+
+.warning-badge {
+  display: inline-block;
+  padding: 0.3rem 0.6rem;
+  background: rgba(255, 0, 0, 0.2);
+  border: 1px solid #ff0000;
+  color: #ff0000;
+  font-size: 0.7rem;
+  margin-left: var(--spacing-xs);
+  border-radius: 2px;
+  text-transform: uppercase;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .app-container {
+    padding: var(--spacing-sm);
+  }
+
+  .peptide-grid {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-md);
+  }
+
+  .filter-bar {
+    gap: var(--spacing-xs);
+    padding: var(--spacing-sm);
+  }
+
+  .app-header {
+    margin-bottom: var(--spacing-lg);
+  }
+
+  .app-subtitle {
+    font-size: 0.9rem;
+  }
+
+  .app-tagline {
+    font-size: 1.1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .peptide-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .filter-bar {
+    justify-content: stretch;
+  }
+
+  .filter-button {
+    flex: 1 1 calc(50% - var(--spacing-xs));
+    justify-content: center;
+    padding: 0.8rem 1rem;
+    font-size: 0.75rem;
+  }
+
+  .use-cases {
+    gap: 0.3rem;
+  }
+
+  .use-case-tag {
+    font-size: 0.65rem;
+    padding: 0.3rem 0.6rem;
+  }
+}

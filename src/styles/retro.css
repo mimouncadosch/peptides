@@ -1,0 +1,383 @@
+/* Typography - Import retro fonts */
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+
+/* 80s Retro-Futuristic Color Palette and Variables */
+
+:root {
+  /* Primary neon colors */
+  --neon-cyan: #00ffff;
+  --neon-magenta: #ff00ff;
+  --neon-purple: #9d00ff;
+  --neon-pink: #ff10f0;
+  --neon-blue: #00d4ff;
+  --neon-green: #00ff41;
+  --neon-yellow: #ffff00;
+
+  /* Background colors */
+  --bg-dark: #0a0a0a;
+  --bg-darker: #050505;
+  --bg-grid: #1a1a2e;
+  --bg-card: rgba(10, 10, 10, 0.85);
+
+  /* Glow effects */
+  --glow-cyan: 0 0 5px #00ffff, 0 0 10px #00ffff, 0 0 20px #00ffff;
+  --glow-magenta: 0 0 5px #ff00ff, 0 0 10px #ff00ff, 0 0 20px #ff00ff;
+  --glow-purple: 0 0 5px #9d00ff, 0 0 10px #9d00ff, 0 0 20px #9d00ff;
+  --glow-green: 0 0 5px #00ff41, 0 0 10px #00ff41, 0 0 20px #00ff41;
+  --glow-yellow: 0 0 5px #ffff00, 0 0 10px #ffff00, 0 0 20px #ffff00;
+
+  /* Spacing */
+  --spacing-xs: 0.5rem;
+  --spacing-sm: 1rem;
+  --spacing-md: 1.5rem;
+  --spacing-lg: 2rem;
+  --spacing-xl: 3rem;
+}
+
+body {
+  font-family: 'Share Tech Mono', monospace;
+  background: var(--bg-dark);
+  color: var(--neon-cyan);
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Orbitron', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-weight: 700;
+}
+
+h1 {
+  font-size: 3rem;
+  text-shadow: var(--glow-cyan);
+  color: var(--neon-cyan);
+  margin: 0;
+}
+
+h2 {
+  font-size: 1.5rem;
+  color: var(--neon-magenta);
+  text-shadow: var(--glow-magenta);
+}
+
+h3 {
+  font-size: 1.2rem;
+  color: var(--neon-purple);
+}
+
+.terminal-text {
+  font-family: 'VT323', monospace;
+  font-size: 1.4em;
+  letter-spacing: 0.05em;
+}
+
+/* Grid Background Component */
+.grid-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -2;
+  background: var(--bg-dark);
+}
+
+.grid-background::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image:
+    linear-gradient(0deg, transparent 24%, rgba(0, 255, 255, 0.03) 25%, rgba(0, 255, 255, 0.03) 26%, transparent 27%, transparent 74%, rgba(0, 255, 255, 0.03) 75%, rgba(0, 255, 255, 0.03) 76%, transparent 77%, transparent),
+    linear-gradient(90deg, transparent 24%, rgba(0, 255, 255, 0.03) 25%, rgba(0, 255, 255, 0.03) 26%, transparent 27%, transparent 74%, rgba(0, 255, 255, 0.03) 75%, rgba(0, 255, 255, 0.03) 76%, transparent 77%, transparent);
+  background-size: 50px 50px;
+  background-position: center center;
+}
+
+.grid-perspective {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 60%;
+  background-image:
+    linear-gradient(0deg, transparent 24%, rgba(255, 0, 255, 0.05) 25%, rgba(255, 0, 255, 0.05) 26%, transparent 27%, transparent 74%, rgba(255, 0, 255, 0.05) 75%, rgba(255, 0, 255, 0.05) 76%, transparent 77%, transparent),
+    linear-gradient(90deg, transparent 24%, rgba(255, 0, 255, 0.05) 25%, rgba(255, 0, 255, 0.05) 26%, transparent 27%, transparent 74%, rgba(255, 0, 255, 0.05) 75%, rgba(255, 0, 255, 0.05) 76%, transparent 77%, transparent);
+  background-size: 60px 60px;
+  background-position: center bottom;
+  transform: perspective(500px) rotateX(60deg);
+  transform-origin: bottom;
+  opacity: 0.6;
+}
+
+.horizon-line {
+  position: absolute;
+  top: 40%;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg,
+    transparent 0%,
+    var(--neon-cyan) 10%,
+    var(--neon-magenta) 50%,
+    var(--neon-cyan) 90%,
+    transparent 100%
+  );
+  box-shadow: var(--glow-cyan);
+  animation: horizon-pulse 4s ease-in-out infinite;
+}
+
+/* Scanline Overlay Component */
+.scanlines {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 9999;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(0, 0, 0, 0.15),
+    rgba(0, 0, 0, 0.15) 1px,
+    transparent 1px,
+    transparent 2px
+  );
+  animation: scanline 8s linear infinite;
+}
+
+.crt-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 9998;
+  background: radial-gradient(ellipse at center, transparent 0%, rgba(0, 0, 0, 0.3) 100%);
+  animation: flicker 0.15s infinite;
+}
+
+/* Neon Border Cards */
+.neon-card {
+  background: var(--bg-card);
+  border: 2px solid var(--neon-cyan);
+  padding: var(--spacing-md);
+  position: relative;
+  box-shadow:
+    inset 0 0 20px rgba(0, 255, 255, 0.1),
+    var(--glow-cyan);
+  transition: all 0.3s ease;
+  backdrop-filter: blur(5px);
+}
+
+.neon-card::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: linear-gradient(45deg, var(--neon-cyan), var(--neon-magenta), var(--neon-purple));
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.neon-card:hover {
+  transform: scale(1.02);
+  box-shadow:
+    inset 0 0 30px rgba(0, 255, 255, 0.2),
+    0 0 10px var(--neon-cyan),
+    0 0 20px var(--neon-cyan),
+    0 0 30px var(--neon-cyan);
+}
+
+.neon-card:hover::before {
+  opacity: 0.2;
+}
+
+/* Neon Buttons */
+.neon-button {
+  background: transparent;
+  border: 2px solid var(--neon-magenta);
+  color: var(--neon-magenta);
+  padding: 0.75rem 1.5rem;
+  font-family: 'Orbitron', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.neon-button::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  background: var(--neon-magenta);
+  opacity: 0.2;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: width 0.6s, height 0.6s;
+}
+
+.neon-button:hover {
+  box-shadow: var(--glow-magenta);
+}
+
+.neon-button:hover::before {
+  width: 300px;
+  height: 300px;
+}
+
+.neon-button.active {
+  background: var(--neon-magenta);
+  color: var(--bg-dark);
+  box-shadow: var(--glow-magenta);
+  font-weight: 900;
+}
+
+.neon-button:active::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 20px;
+  height: 20px;
+  background: white;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  animation: ripple 0.6s ease-out;
+  opacity: 0.5;
+}
+
+/* Status Badges */
+.status-badge {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  font-size: 0.75rem;
+  font-family: 'Orbitron', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  border-radius: 2px;
+  animation: pulse 2s infinite;
+  font-weight: 700;
+}
+
+.status-badge.approved {
+  background: rgba(0, 255, 65, 0.2);
+  border: 1px solid var(--neon-green);
+  color: var(--neon-green);
+  box-shadow: var(--glow-green);
+}
+
+.status-badge.clinical-trials {
+  background: rgba(255, 255, 0, 0.2);
+  border: 1px solid var(--neon-yellow);
+  color: var(--neon-yellow);
+  box-shadow: var(--glow-yellow);
+}
+
+.status-badge.unapproved {
+  background: rgba(255, 0, 255, 0.2);
+  border: 1px solid var(--neon-magenta);
+  color: var(--neon-magenta);
+  box-shadow: var(--glow-magenta);
+}
+
+/* Links */
+a {
+  color: var(--neon-cyan);
+  text-decoration: none;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+a:hover {
+  color: var(--neon-magenta);
+  text-shadow: var(--glow-magenta);
+}
+
+a::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: var(--neon-magenta);
+  transition: width 0.3s ease;
+  box-shadow: var(--glow-magenta);
+}
+
+a:hover::after {
+  width: 100%;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  h1 {
+    font-size: 2rem;
+  }
+
+  .neon-card {
+    padding: var(--spacing-sm);
+  }
+
+  .neon-card:hover {
+    transform: scale(1.01);
+  }
+
+  .neon-button {
+    padding: 1rem 1.5rem;
+    font-size: 0.85rem;
+  }
+
+  .grid-perspective {
+    opacity: 0.3;
+  }
+}
+
+@media (max-width: 480px) {
+  h1 {
+    font-size: 1.5rem;
+  }
+
+  .grid-background::before {
+    background-size: 30px 30px;
+  }
+
+  .scanlines {
+    display: none;
+  }
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Focus indicators */
+button:focus-visible,
+a:focus-visible {
+  outline: 2px solid var(--neon-cyan);
+  outline-offset: 4px;
+}
