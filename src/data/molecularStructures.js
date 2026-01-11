@@ -1,9 +1,9 @@
 // Molecular Structure Data for Peptides
-// Amino acid sequences and visualization settings for 3Dmol.js
+// Amino acid sequences and PubChem identifiers for 2D structure visualization
 
 /**
- * Peptide molecular structures with amino acid sequences
- * These sequences will be used to generate 3D structures with 3Dmol.js
+ * Peptide molecular structures with amino acid sequences and PubChem CIDs
+ * 2D molecular structures are fetched from the PubChem database
  */
 
 export const PEPTIDE_STRUCTURES = {
@@ -12,13 +12,9 @@ export const PEPTIDE_STRUCTURES = {
     sequence: 'GEPPPGKPADDAGLV',
     molecularFormula: 'C62H98N16O22',
     molecularWeight: 1419.53,
-    structure: 'peptide', // Type of structure
-    visualization: {
-      style: 'stick',
-      colorScheme: 'cyanCarbon',
-      backgroundColor: '#0a0a0a'
-    },
-    note: 'Structure generated from sequence'
+    pubchemCID: 9941957,
+    structure: 'peptide',
+    note: 'Pentadecapeptide from gastric juice'
   },
 
   'tb-500': {
@@ -26,13 +22,9 @@ export const PEPTIDE_STRUCTURES = {
     sequence: 'LKKTETQEKNPLPSKETIEQEKQAGES',
     molecularFormula: 'C212H350N56O78S',
     molecularWeight: 4963.44,
+    pubchemCID: 16132341,
     structure: 'peptide',
-    visualization: {
-      style: 'cartoon',
-      colorScheme: 'spectrum',
-      backgroundColor: '#0a0a0a'
-    },
-    note: 'Thymosin Beta-4 fragment'
+    note: 'Thymosin Beta-4'
   },
 
   'ghk-cu': {
@@ -40,12 +32,8 @@ export const PEPTIDE_STRUCTURES = {
     sequence: 'GHK',
     molecularFormula: 'C14H24CuN6O4',
     molecularWeight: 404.93,
+    pubchemCID: 378611,
     structure: 'peptide',
-    visualization: {
-      style: 'stick',
-      colorScheme: 'magentaCarbon',
-      backgroundColor: '#0a0a0a'
-    },
     note: 'Copper peptide complex'
   },
 
@@ -54,12 +42,8 @@ export const PEPTIDE_STRUCTURES = {
     sequence: 'Aib-His-D-2-Nal-D-Phe-Lys-NH2',
     molecularFormula: 'C38H49N9O5',
     molecularWeight: 711.85,
+    pubchemCID: 9831659,
     structure: 'peptide',
-    visualization: {
-      style: 'stick',
-      colorScheme: 'purpleCarbon',
-      backgroundColor: '#0a0a0a'
-    },
     note: 'Synthetic growth hormone secretagogue'
   },
 
@@ -68,13 +52,9 @@ export const PEPTIDE_STRUCTURES = {
     sequence: 'YADAIFTNSYRKVLGQLSARKLLQDIMSRQQGESNQERGARARL',
     molecularFormula: 'C152H252N44O42',
     molecularWeight: 3367.97,
+    pubchemCID: 91976842,
     structure: 'peptide',
-    visualization: {
-      style: 'cartoon',
-      colorScheme: 'cyanCarbon',
-      backgroundColor: '#0a0a0a'
-    },
-    note: 'Modified growth hormone releasing hormone'
+    note: 'Modified GRF 1-29'
   },
 
   'melanotan-2': {
@@ -82,13 +62,9 @@ export const PEPTIDE_STRUCTURES = {
     sequence: 'Ac-Nle-cyclo(Asp-His-D-Phe-Arg-Trp-Lys)-NH2',
     molecularFormula: 'C50H69N15O9',
     molecularWeight: 1024.18,
+    pubchemCID: 92432,
     structure: 'cyclic-peptide',
-    visualization: {
-      style: 'stick',
-      colorScheme: 'yellowCarbon',
-      backgroundColor: '#0a0a0a'
-    },
-    note: 'Cyclic synthetic melanocortin analog'
+    note: 'Cyclic melanocortin analog'
   },
 
   'selank': {
@@ -96,13 +72,9 @@ export const PEPTIDE_STRUCTURES = {
     sequence: 'TKPRPGP',
     molecularFormula: 'C33H57N11O9',
     molecularWeight: 751.88,
+    pubchemCID: 11765600,
     structure: 'peptide',
-    visualization: {
-      style: 'stick',
-      colorScheme: 'cyanCarbon',
-      backgroundColor: '#0a0a0a'
-    },
-    note: 'Synthetic derivative of tuftsin'
+    note: 'Synthetic tuftsin analog'
   },
 
   'semax': {
@@ -110,12 +82,8 @@ export const PEPTIDE_STRUCTURES = {
     sequence: 'MEHFPGP',
     molecularFormula: 'C37H51N9O10S',
     molecularWeight: 813.92,
+    pubchemCID: 9811102,
     structure: 'peptide',
-    visualization: {
-      style: 'stick',
-      colorScheme: 'purpleCarbon',
-      backgroundColor: '#0a0a0a'
-    },
     note: 'ACTH 4-10 analog'
   },
 
@@ -124,12 +92,8 @@ export const PEPTIDE_STRUCTURES = {
     sequence: 'AEDG',
     molecularFormula: 'C14H22N4O9',
     molecularWeight: 390.35,
+    pubchemCID: 219042,
     structure: 'peptide',
-    visualization: {
-      style: 'stick',
-      colorScheme: 'magentaCarbon',
-      backgroundColor: '#0a0a0a'
-    },
     note: 'Synthetic tetrapeptide'
   },
 
@@ -138,12 +102,8 @@ export const PEPTIDE_STRUCTURES = {
     sequence: 'WAGGDASGE',
     molecularFormula: 'C35H48N10O15',
     molecularWeight: 848.81,
+    pubchemCID: 68816,
     structure: 'peptide',
-    visualization: {
-      style: 'stick',
-      colorScheme: 'cyanCarbon',
-      backgroundColor: '#0a0a0a'
-    },
     note: 'Delta sleep-inducing peptide'
   },
 
@@ -152,13 +112,9 @@ export const PEPTIDE_STRUCTURES = {
     sequence: 'Ac-Nle-cyclo(Asp-His-D-Phe-Arg-Trp-Lys)-OH',
     molecularFormula: 'C50H68N14O10',
     molecularWeight: 1025.17,
+    pubchemCID: 9941379,
     structure: 'cyclic-peptide',
-    visualization: {
-      style: 'stick',
-      colorScheme: 'magentaCarbon',
-      backgroundColor: '#0a0a0a'
-    },
-    note: 'Bremelanotide - melanocortin receptor agonist'
+    note: 'Bremelanotide'
   },
 
   'aod-9604': {
@@ -166,13 +122,9 @@ export const PEPTIDE_STRUCTURES = {
     sequence: 'YLRIVQCRSVEGSCGF',
     molecularFormula: 'C78H123N23O23S2',
     molecularWeight: 1815.08,
+    pubchemCID: 71300630,
     structure: 'peptide',
-    visualization: {
-      style: 'stick',
-      colorScheme: 'yellowCarbon',
-      backgroundColor: '#0a0a0a'
-    },
-    note: 'Modified fragment of human growth hormone'
+    note: 'HGH fragment 176-191'
   }
 };
 
@@ -183,27 +135,4 @@ export const PEPTIDE_STRUCTURES = {
  */
 export const getMolecularStructure = (peptideId) => {
   return PEPTIDE_STRUCTURES[peptideId] || null;
-};
-
-/**
- * Generate PDB format from amino acid sequence (simplified)
- * This is a placeholder - 3Dmol.js can handle sequences directly
- * @param {string} sequence - Amino acid sequence
- * @returns {string} Simple PDB-like format
- */
-export const generatePDBFromSequence = (sequence) => {
-  // 3Dmol.js can generate structures from sequences
-  // This function is a placeholder for future enhancement
-  return sequence;
-};
-
-/**
- * Color schemes for different peptide types
- */
-export const COLOR_SCHEMES = {
-  healing: 'greenCarbon',
-  performance: 'cyanCarbon',
-  cognitive: 'purpleCarbon',
-  beauty: 'magentaCarbon',
-  longevity: 'orangeCarbon'
 };

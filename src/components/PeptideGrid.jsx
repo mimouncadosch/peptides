@@ -5,8 +5,10 @@ import PeptideCard from './PeptideCard';
  * PeptideGrid Component
  * Renders a responsive grid of peptide cards
  * @param {Array} peptides - Array of peptide objects to display
+ * @param {Array} selectedPeptides - Array of selected peptide IDs
+ * @param {Function} onToggleSelect - Callback for selection toggle
  */
-const PeptideGrid = ({ peptides }) => {
+const PeptideGrid = ({ peptides, selectedPeptides = [], onToggleSelect }) => {
   if (!peptides || peptides.length === 0) {
     return (
       <div className="peptide-grid empty">
@@ -23,7 +25,12 @@ const PeptideGrid = ({ peptides }) => {
   return (
     <div className="peptide-grid">
       {peptides.map(peptide => (
-        <PeptideCard key={peptide.id} peptide={peptide} />
+        <PeptideCard
+          key={peptide.id}
+          peptide={peptide}
+          selected={selectedPeptides.includes(peptide.id)}
+          onToggleSelect={onToggleSelect}
+        />
       ))}
     </div>
   );

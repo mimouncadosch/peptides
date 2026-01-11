@@ -1,0 +1,582 @@
+/* Character Selection Screen Styles */
+/* Video game aesthetic for peptide cards */
+
+/* ===== SHAPE CONTAINER ===== */
+.shape-container {
+  width: 120px;
+  height: 120px;
+  margin: 0 auto 1rem;
+  perspective: 800px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.shape-container.selected .shape-3d {
+  animation-duration: 2s !important; /* Faster rotation when selected */
+}
+
+/* ===== BASE 3D SHAPE STYLES ===== */
+.shape-3d {
+  width: 100px;
+  height: 100px;
+  position: relative;
+  transform-style: preserve-3d;
+  animation: rotate3d 8s linear infinite;
+  will-change: transform;
+}
+
+@keyframes rotate3d {
+  from {
+    transform: rotateX(0deg) rotateY(0deg);
+  }
+  to {
+    transform: rotateX(360deg) rotateY(360deg);
+  }
+}
+
+/* ===== CUBE SHAPE ===== */
+.shape-cube .cube-face {
+  position: absolute;
+  width: 80px;
+  height: 80px;
+  border: 2px solid;
+  background: rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(5px);
+}
+
+.shape-cube .front  { transform: translateZ(40px); }
+.shape-cube .back   { transform: rotateY(180deg) translateZ(40px); }
+.shape-cube .right  { transform: rotateY(90deg) translateZ(40px); }
+.shape-cube .left   { transform: rotateY(-90deg) translateZ(40px); }
+.shape-cube .top    { transform: rotateX(90deg) translateZ(40px); }
+.shape-cube .bottom { transform: rotateX(-90deg) translateZ(40px); }
+
+/* ===== SPHERE SHAPE (wireframe rings) ===== */
+.shape-sphere {
+  animation: rotate3d 6s linear infinite;
+}
+
+.shape-sphere .sphere-ring {
+  position: absolute;
+  width: 80px;
+  height: 80px;
+  border: 2px solid;
+  border-radius: 50%;
+  top: 10px;
+  left: 10px;
+}
+
+/* ===== PYRAMID SHAPE ===== */
+.shape-pyramid {
+  width: 90px;
+  height: 90px;
+}
+
+.shape-pyramid .pyramid-face {
+  position: absolute;
+  width: 0;
+  height: 0;
+  border-left: 45px solid transparent;
+  border-right: 45px solid transparent;
+  border-bottom: 70px solid transparent;
+  border-bottom-color: currentColor;
+  border-width: 2px;
+}
+
+.shape-pyramid .front { transform: translateZ(30px) rotateX(60deg); }
+.shape-pyramid .right { transform: translateZ(30px) rotateX(60deg) rotateY(90deg); }
+.shape-pyramid .back  { transform: translateZ(30px) rotateX(60deg) rotateY(180deg); }
+.shape-pyramid .left  { transform: translateZ(30px) rotateX(60deg) rotateY(-90deg); }
+.shape-pyramid .base  {
+  border: none;
+  width: 80px;
+  height: 80px;
+  border: 2px solid;
+  transform: translateZ(-30px);
+}
+
+/* ===== OCTAHEDRON SHAPE ===== */
+.shape-octahedron {
+  width: 80px;
+  height: 100px;
+}
+
+.shape-octahedron .octahedron-pyramid {
+  position: absolute;
+  width: 100%;
+  height: 50%;
+}
+
+.shape-octahedron .top    { transform: translateY(-20px); }
+.shape-octahedron .bottom { transform: translateY(20px) rotateX(180deg); }
+
+.shape-octahedron .pyramid-face {
+  position: absolute;
+  width: 0;
+  height: 0;
+  border-left: 30px solid transparent;
+  border-right: 30px solid transparent;
+  border-bottom: 50px solid transparent;
+  border-width: 2px;
+}
+
+/* ===== HELIX SHAPE (DNA) ===== */
+.shape-helix {
+  width: 60px;
+  height: 100px;
+  animation: rotate3d 10s linear infinite;
+}
+
+.shape-helix .helix-segment {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  border: 2px solid;
+  border-radius: 50%;
+  left: 24px;
+}
+
+/* ===== STAR SHAPE ===== */
+.shape-star {
+  width: 100px;
+  height: 100px;
+  animation: rotate3d 5s linear infinite;
+}
+
+.shape-star .star-point {
+  position: absolute;
+  width: 4px;
+  height: 60px;
+  border: 2px solid;
+  left: 48px;
+  top: 50px;
+  transform-origin: bottom center;
+}
+
+/* ===== TORUS SHAPE (donut) ===== */
+.shape-torus {
+  width: 80px;
+  height: 80px;
+  animation: rotate3d 7s linear infinite;
+}
+
+.shape-torus .torus-segment {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border: 2px solid;
+  border-radius: 50%;
+  left: 30px;
+  top: 30px;
+}
+
+/* ===== CRYSTAL SHAPE ===== */
+.shape-crystal {
+  width: 70px;
+  height: 110px;
+  animation: rotate3d 6s linear infinite;
+}
+
+.shape-crystal .crystal-top {
+  position: absolute;
+  top: 0;
+  transform: scale(0.6);
+}
+
+.shape-crystal .crystal-middle {
+  position: absolute;
+  width: 50px;
+  height: 40px;
+  border: 2px solid;
+  top: 35px;
+  left: 10px;
+}
+
+.shape-crystal .crystal-bottom {
+  position: absolute;
+  bottom: 0;
+  transform: scale(0.6) rotateX(180deg);
+}
+
+/* ===== DODECAHEDRON SHAPE ===== */
+.shape-dodecahedron {
+  width: 90px;
+  height: 90px;
+  animation: rotate3d 9s linear infinite;
+}
+
+.shape-dodecahedron .dodecahedron-face {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  border: 2px solid;
+  left: 30px;
+  top: 30px;
+}
+
+/* ===== CRESCENT SHAPE (moon) ===== */
+.shape-crescent {
+  width: 80px;
+  height: 80px;
+  animation: rotate3d 5s linear infinite;
+}
+
+.shape-crescent .crescent-outer {
+  position: absolute;
+  width: 60px;
+  height: 60px;
+  border: 2px solid;
+  border-radius: 50%;
+  top: 10px;
+  left: 10px;
+}
+
+.shape-crescent .crescent-inner {
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  border: 2px solid;
+  border-radius: 50%;
+  top: 10px;
+  left: 20px;
+}
+
+/* ===== HEART SHAPE ===== */
+.shape-heart {
+  width: 80px;
+  height: 80px;
+  animation: rotate3d 6s linear infinite;
+}
+
+.shape-heart .heart-left,
+.shape-heart .heart-right {
+  position: absolute;
+  width: 30px;
+  height: 48px;
+  border-radius: 30px 30px 0 0;
+  opacity: 0.3;
+}
+
+.shape-heart .heart-left {
+  left: 10px;
+  transform: rotate(-45deg);
+  transform-origin: 0 100%;
+}
+
+.shape-heart .heart-right {
+  left: 32px;
+  transform: rotate(45deg);
+  transform-origin: 100% 100%;
+}
+
+.shape-heart .heart-bottom {
+  position: absolute;
+  width: 0;
+  height: 0;
+  border-left: 30px solid transparent;
+  border-right: 30px solid transparent;
+  border-top: 30px solid;
+  top: 35px;
+  left: 10px;
+  opacity: 0.3;
+}
+
+/* ===== PRISM SHAPE ===== */
+.shape-prism {
+  width: 60px;
+  height: 100px;
+  animation: rotate3d 7s linear infinite;
+}
+
+.shape-prism .prism-face {
+  position: absolute;
+  border: 2px solid;
+  background: rgba(0, 0, 0, 0.1);
+}
+
+.shape-prism .front,
+.shape-prism .back {
+  width: 0;
+  height: 0;
+  border-left: 30px solid transparent;
+  border-right: 30px solid transparent;
+  border-bottom: 50px solid transparent;
+  left: 0;
+}
+
+.shape-prism .front { transform: translateZ(40px); }
+.shape-prism .back  { transform: translateZ(-40px) rotateY(180deg); }
+
+.shape-prism .left,
+.shape-prism .right {
+  width: 80px;
+  height: 50px;
+  transform: rotateY(90deg);
+}
+
+.shape-prism .left  { transform: rotateY(-90deg) translateX(-30px) translateZ(10px) rotateX(30deg); }
+.shape-prism .right { transform: rotateY(90deg) translateX(30px) translateZ(10px) rotateX(30deg); }
+
+/* ===== STATS DISPLAY ===== */
+.stats-display {
+  margin: 1rem 0;
+}
+
+.stats-display.compact {
+  margin: 0.5rem 0;
+}
+
+.stats-title {
+  font-size: 0.9rem;
+  color: var(--neon-cyan);
+  margin-bottom: 0.5rem;
+  letter-spacing: 0.2em;
+}
+
+.stats-bars {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.stat-row {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.stat-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.75rem;
+  font-family: 'Orbitron', sans-serif;
+  text-transform: uppercase;
+}
+
+.stat-icon {
+  font-size: 0.9em;
+}
+
+.stat-label {
+  flex: 1;
+  color: var(--neon-cyan);
+}
+
+.stat-value {
+  color: var(--neon-magenta);
+  font-weight: 700;
+  min-width: 35px;
+  text-align: right;
+}
+
+.stat-bar-container {
+  width: 100%;
+  height: 8px;
+  background: rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(0, 255, 255, 0.3);
+  position: relative;
+  overflow: hidden;
+}
+
+.stat-bar-fill {
+  height: 100%;
+  transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+}
+
+.stat-bar-fill.animated {
+  animation: statBarPulse 2s ease-in-out infinite;
+}
+
+@keyframes statBarPulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.8; }
+}
+
+.no-stats {
+  font-size: 0.8rem;
+  color: var(--neon-purple);
+  opacity: 0.6;
+  font-style: italic;
+}
+
+/* ===== SELECTED STATE ===== */
+.peptide-card.selected {
+  border-color: var(--neon-green);
+  box-shadow:
+    inset 0 0 30px rgba(0, 255, 65, 0.2),
+    0 0 15px var(--neon-green),
+    0 0 30px var(--neon-green),
+    0 0 45px var(--neon-green);
+  animation: selectedPulse 2s ease-in-out infinite;
+}
+
+@keyframes selectedPulse {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow:
+      inset 0 0 30px rgba(0, 255, 65, 0.2),
+      0 0 15px var(--neon-green),
+      0 0 30px var(--neon-green);
+  }
+  50% {
+    transform: scale(1.02);
+    box-shadow:
+      inset 0 0 40px rgba(0, 255, 65, 0.3),
+      0 0 20px var(--neon-green),
+      0 0 40px var(--neon-green),
+      0 0 60px var(--neon-green);
+  }
+}
+
+.selected-badge {
+  display: inline-block;
+  padding: 0.3rem 0.8rem;
+  background: rgba(0, 255, 65, 0.2);
+  border: 2px solid var(--neon-green);
+  color: var(--neon-green);
+  font-size: 0.75rem;
+  font-family: 'Orbitron', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  font-weight: 900;
+  box-shadow: var(--glow-green);
+  animation: selectedBadgePulse 1s ease-in-out infinite;
+  margin-left: 0.5rem;
+}
+
+@keyframes selectedBadgePulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
+/* ===== SELECT BUTTON ===== */
+.select-button {
+  width: 100%;
+  margin-top: var(--spacing-sm);
+  padding: var(--spacing-sm);
+  background: transparent;
+  border: 2px solid var(--neon-cyan);
+  color: var(--neon-cyan);
+  font-family: 'Orbitron', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 0.9rem;
+  font-weight: 700;
+  position: relative;
+  overflow: hidden;
+}
+
+.select-button::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  background: var(--neon-cyan);
+  opacity: 0.2;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: width 0.6s, height 0.6s;
+}
+
+.select-button:hover::before {
+  width: 300px;
+  height: 300px;
+}
+
+.select-button:hover {
+  box-shadow: var(--glow-cyan);
+}
+
+.select-button.selected {
+  background: var(--neon-green);
+  border-color: var(--neon-green);
+  color: var(--bg-dark);
+  box-shadow: var(--glow-green);
+}
+
+.select-button:active {
+  transform: scale(0.98);
+}
+
+/* ===== CHARACTER CARD LAYOUT ===== */
+.character-card-layout {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.character-portrait {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: var(--spacing-sm);
+  border-bottom: 2px solid var(--neon-cyan);
+  margin-bottom: var(--spacing-sm);
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+  .shape-container {
+    width: 100px;
+    height: 100px;
+  }
+
+  .shape-3d {
+    width: 80px;
+    height: 80px;
+  }
+
+  .stats-display {
+    font-size: 0.9rem;
+  }
+
+  .stat-header {
+    font-size: 0.7rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .shape-container {
+    width: 80px;
+    height: 80px;
+  }
+
+  .shape-3d {
+    width: 60px;
+    height: 60px;
+    /* Simplified animation on mobile for performance */
+    animation-duration: 12s !important;
+  }
+
+  .stats-display.compact {
+    display: none; /* Hide stats on very small screens to save space */
+  }
+}
+
+/* ===== PERFORMANCE OPTIMIZATIONS ===== */
+.shape-3d,
+.stat-bar-fill {
+  will-change: transform, width;
+}
+
+/* Pause animations for off-screen cards */
+@media (prefers-reduced-motion: reduce) {
+  .shape-3d {
+    animation: none;
+  }
+
+  .stat-bar-fill {
+    transition: none;
+  }
+
+  .peptide-card.selected {
+    animation: none;
+  }
+}
