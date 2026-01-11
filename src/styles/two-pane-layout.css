@@ -1,0 +1,193 @@
+/* Two-Pane Pokedex Layout */
+/* Split screen with left list and right detail view */
+
+/* Main app container adjustments */
+.app-container.two-pane {
+  max-width: 100%;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+/* Header stays at top */
+.app-header-compact {
+  padding: var(--spacing-md) var(--spacing-lg);
+  text-align: center;
+  border-bottom: 2px solid var(--neon-cyan);
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(10px);
+}
+
+.app-header-compact .app-title {
+  font-size: 2rem;
+  margin-bottom: 0.25rem;
+}
+
+.app-header-compact .app-subtitle {
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+.app-header-compact .app-tagline {
+  display: none; /* Hide tagline in compact header */
+}
+
+/* Two-pane content area */
+.app-content {
+  display: grid;
+  grid-template-columns: 380px 1fr;
+  gap: 0;
+  flex: 1;
+  overflow: hidden;
+  position: relative;
+}
+
+/* Left Pane - Peptide List */
+.left-pane {
+  border-right: 2px solid var(--neon-cyan);
+  overflow-y: auto;
+  overflow-x: hidden;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(5px);
+  display: flex;
+  flex-direction: column;
+}
+
+/* Right Pane - Detail View */
+.right-pane {
+  overflow-y: auto;
+  overflow-x: hidden;
+  background: rgba(0, 0, 0, 0.4);
+  display: flex;
+  flex-direction: column;
+}
+
+/* Custom scrollbar for panes */
+.left-pane::-webkit-scrollbar,
+.right-pane::-webkit-scrollbar {
+  width: 8px;
+}
+
+.left-pane::-webkit-scrollbar-track,
+.right-pane::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.3);
+}
+
+.left-pane::-webkit-scrollbar-thumb,
+.right-pane::-webkit-scrollbar-thumb {
+  background: var(--neon-cyan);
+  border-radius: 4px;
+}
+
+.left-pane::-webkit-scrollbar-thumb:hover,
+.right-pane::-webkit-scrollbar-thumb:hover {
+  background: var(--neon-magenta);
+}
+
+/* Responsive Breakpoints */
+
+/* Tablet - narrower left pane */
+@media (max-width: 1024px) {
+  .app-content {
+    grid-template-columns: 320px 1fr;
+  }
+}
+
+/* Mobile - stack vertically */
+@media (max-width: 768px) {
+  .app-content {
+    grid-template-columns: 1fr;
+    grid-template-rows: 45vh 1fr;
+  }
+
+  .left-pane {
+    border-right: none;
+    border-bottom: 2px solid var(--neon-cyan);
+  }
+
+  .app-header-compact .app-title {
+    font-size: 1.5rem;
+  }
+}
+
+/* Very small mobile */
+@media (max-width: 480px) {
+  .app-content {
+    grid-template-rows: 40vh 1fr;
+  }
+
+  .app-header-compact {
+    padding: var(--spacing-sm);
+  }
+
+  .app-header-compact .app-title {
+    font-size: 1.3rem;
+  }
+
+  .app-header-compact .app-subtitle {
+    font-size: 0.75rem;
+  }
+}
+
+/* Loading state */
+.pane-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 200px;
+  color: var(--neon-cyan);
+  font-family: 'Orbitron', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  animation: pulse 2s infinite;
+}
+
+/* Empty state */
+.pane-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 300px;
+  padding: var(--spacing-xl);
+  text-align: center;
+  color: var(--neon-purple);
+  opacity: 0.7;
+}
+
+.pane-empty-icon {
+  font-size: 3rem;
+  margin-bottom: var(--spacing-md);
+}
+
+.pane-empty-text {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1.1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+/* Resize handle (optional future enhancement) */
+.resize-handle {
+  position: absolute;
+  top: 0;
+  right: -4px;
+  width: 8px;
+  height: 100%;
+  cursor: col-resize;
+  background: transparent;
+  z-index: 10;
+}
+
+.resize-handle:hover {
+  background: var(--neon-cyan);
+  box-shadow: var(--glow-cyan);
+}
+
+/* Performance optimizations */
+.left-pane,
+.right-pane {
+  will-change: scroll-position;
+  -webkit-overflow-scrolling: touch;
+}

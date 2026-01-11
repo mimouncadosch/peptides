@@ -1,0 +1,399 @@
+/* Right Pane - Detail View (Pokedex) Styles */
+
+.right-pane-content {
+  padding: var(--spacing-lg);
+  animation: fadeIn 0.4s ease-out;
+}
+
+/* Molecule Viewer Section */
+.molecule-viewer-section {
+  margin-bottom: var(--spacing-xl);
+  text-align: center;
+}
+
+.molecule-viewer-container {
+  width: 100%;
+  max-width: 600px;
+  height: 400px;
+  margin: 0 auto var(--spacing-md);
+  border: 2px solid var(--neon-cyan);
+  background: rgba(0, 0, 0, 0.8);
+  position: relative;
+  box-shadow: var(--glow-cyan);
+}
+
+.molecule-viewer {
+  width: 100%;
+  height: 100%;
+}
+
+.molecule-viewer-loading {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.9);
+  color: var(--neon-cyan);
+  font-family: 'Orbitron', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  animation: pulse 2s infinite;
+}
+
+.molecule-viewer-loading-spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid rgba(0, 255, 255, 0.2);
+  border-top-color: var(--neon-cyan);
+  border-radius: 50%;
+  animation: rotate 1s linear infinite;
+  margin-bottom: var(--spacing-sm);
+}
+
+.molecule-info {
+  display: flex;
+  justify-content: center;
+  gap: var(--spacing-lg);
+  flex-wrap: wrap;
+  font-size: 0.8rem;
+  color: var(--neon-purple);
+  opacity: 0.8;
+}
+
+.molecule-info-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.molecule-info-label {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.molecule-info-value {
+  font-family: 'Share Tech Mono', monospace;
+  color: var(--neon-cyan);
+}
+
+/* Detail Header */
+.detail-header {
+  text-align: center;
+  margin-bottom: var(--spacing-xl);
+  padding-bottom: var(--spacing-lg);
+  border-bottom: 2px solid var(--neon-cyan);
+}
+
+.detail-title {
+  font-size: 2.5rem;
+  margin-bottom: var(--spacing-xs);
+  color: var(--neon-cyan);
+  text-shadow: var(--glow-cyan);
+  animation: glow-pulse 3s ease-in-out infinite;
+}
+
+.detail-subtitle {
+  font-size: 1.1rem;
+  color: var(--neon-purple);
+  opacity: 0.9;
+  margin-bottom: var(--spacing-sm);
+}
+
+.detail-badges {
+  display: flex;
+  gap: var(--spacing-sm);
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: var(--spacing-md);
+}
+
+/* Stats Section */
+.stats-section {
+  margin-bottom: var(--spacing-xl);
+  padding: var(--spacing-lg);
+  background: rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(0, 255, 255, 0.3);
+}
+
+.stats-section-title {
+  font-size: 1.2rem;
+  color: var(--neon-magenta);
+  margin-bottom: var(--spacing-md);
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+}
+
+/* Detail Sections */
+.detail-section {
+  margin-bottom: var(--spacing-xl);
+  padding: var(--spacing-lg);
+  background: rgba(0, 0, 0, 0.3);
+  border-left: 3px solid var(--neon-cyan);
+}
+
+.detail-section-title {
+  font-size: 1.3rem;
+  color: var(--neon-cyan);
+  margin-bottom: var(--spacing-md);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+.detail-section-icon {
+  font-size: 1.2em;
+}
+
+.detail-section-content {
+  color: rgba(0, 255, 255, 0.9);
+  line-height: 1.8;
+}
+
+.detail-section-content p {
+  margin-bottom: var(--spacing-sm);
+}
+
+/* Info Grid */
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: var(--spacing-md);
+  margin-top: var(--spacing-md);
+}
+
+.info-grid-item {
+  padding: var(--spacing-sm);
+  background: rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(0, 255, 255, 0.2);
+}
+
+.info-grid-label {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 0.8rem;
+  color: var(--neon-magenta);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 0.25rem;
+}
+
+.info-grid-value {
+  color: var(--neon-cyan);
+  font-size: 0.9rem;
+}
+
+/* Studies List */
+.studies-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+.study-item {
+  padding: var(--spacing-md);
+  background: rgba(0, 255, 255, 0.05);
+  border-left: 3px solid var(--neon-cyan);
+  transition: all 0.3s ease;
+}
+
+.study-item:hover {
+  background: rgba(0, 255, 255, 0.1);
+  border-left-color: var(--neon-magenta);
+}
+
+.study-link {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--neon-cyan);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: var(--spacing-xs);
+  transition: color 0.3s ease;
+}
+
+.study-link:hover {
+  color: var(--neon-magenta);
+}
+
+.study-link::after {
+  content: '↗';
+  font-size: 0.9em;
+}
+
+.study-meta {
+  display: flex;
+  gap: var(--spacing-sm);
+  font-size: 0.85rem;
+  margin-bottom: var(--spacing-xs);
+}
+
+.study-year {
+  color: var(--neon-yellow);
+  font-weight: 700;
+}
+
+.study-summary {
+  font-size: 0.9rem;
+  color: rgba(0, 255, 255, 0.8);
+  line-height: 1.6;
+}
+
+/* Comparison Section */
+.comparison-section {
+  margin-top: var(--spacing-xl);
+  padding: var(--spacing-lg);
+  background: rgba(157, 0, 255, 0.1);
+  border: 2px solid var(--neon-purple);
+}
+
+.comparison-title {
+  font-size: 1.2rem;
+  color: var(--neon-purple);
+  margin-bottom: var(--spacing-md);
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  text-align: center;
+}
+
+.comparison-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: var(--spacing-md);
+}
+
+.comparison-item {
+  text-align: center;
+  padding: var(--spacing-md);
+  background: rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(157, 0, 255, 0.3);
+}
+
+.comparison-label {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 0.75rem;
+  color: var(--neon-purple);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 0.5rem;
+}
+
+.comparison-value {
+  font-size: 1.5rem;
+  color: var(--neon-cyan);
+  font-weight: 700;
+}
+
+.comparison-indicator {
+  font-size: 0.8rem;
+  color: var(--neon-green);
+  margin-top: 0.25rem;
+}
+
+.comparison-indicator.negative {
+  color: var(--neon-magenta);
+}
+
+/* Warnings */
+.warnings-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.warning-item {
+  padding: var(--spacing-sm);
+  background: rgba(255, 0, 0, 0.1);
+  border-left: 3px solid #ff0000;
+  color: #ff0000;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.warning-icon {
+  font-size: 1.2em;
+}
+
+/* Use Case Tags in Detail View */
+.use-cases-detail {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-sm);
+  justify-content: center;
+  margin: var(--spacing-lg) 0;
+}
+
+.use-case-tag-large {
+  padding: 0.6rem 1.2rem;
+  background: rgba(157, 0, 255, 0.2);
+  border: 2px solid var(--neon-purple);
+  color: var(--neon-purple);
+  font-size: 0.9rem;
+  font-family: 'Orbitron', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  box-shadow: 0 0 10px rgba(157, 0, 255, 0.3);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .right-pane-content {
+    padding: var(--spacing-md);
+  }
+
+  .molecule-viewer-container {
+    height: 300px;
+  }
+
+  .detail-title {
+    font-size: 2rem;
+  }
+
+  .detail-subtitle {
+    font-size: 1rem;
+  }
+
+  .info-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .comparison-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .molecule-viewer-container {
+    height: 250px;
+  }
+
+  .detail-title {
+    font-size: 1.6rem;
+  }
+
+  .molecule-info {
+    font-size: 0.7rem;
+  }
+}
