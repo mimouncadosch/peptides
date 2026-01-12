@@ -7,6 +7,7 @@ export const PEPTIDES = [
     fullName: 'Body Protection Compound-157',
     status: 'clinical-trials',
     description: 'A pentadecapeptide derived from a protective gastric protein. BPC-157 has shown remarkable healing properties in preclinical studies, promoting angiogenesis, tissue repair, and protection against various injuries.',
+    mechanism: 'BPC-157 modulates the nitric oxide (NO) system, promoting angiogenesis through VEGF upregulation. It activates FAK-paxillin signaling pathways to enhance cell migration and tissue repair. The peptide also interacts with the dopaminergic system and influences growth hormone receptor expression, contributing to its regenerative effects.',
     useCases: ['muscle-recovery', 'injury-healing', 'gut-health'],
     chineseContext: {
       sourcing: 'Commonly synthesized in Chinese pharmaceutical facilities with varying purity levels (95-99%)',
@@ -36,6 +37,7 @@ export const PEPTIDES = [
     fullName: 'Thymosin Beta-4',
     status: 'clinical-trials',
     description: 'A naturally occurring peptide present in high concentrations in blood platelets, wound fluid, and other tissues. TB-500 promotes cell migration, differentiation, and tissue repair through multiple pathways.',
+    mechanism: 'TB-500 sequesters G-actin monomers, promoting actin polymerization and cytoskeletal reorganization essential for cell migration. It upregulates cell surface receptors and facilitates blood vessel formation. The peptide also reduces inflammation by inhibiting NF-κB activation and promotes stem cell differentiation for tissue regeneration.',
     useCases: ['muscle-recovery', 'injury-healing', 'flexibility'],
     chineseContext: {
       sourcing: 'Manufactured in Chinese peptide synthesis labs with quality ranging from research to pharmaceutical grade',
@@ -65,6 +67,7 @@ export const PEPTIDES = [
     fullName: 'Copper Peptide (Gly-His-Lys)',
     status: 'approved',
     description: 'A copper complex of the tripeptide Gly-His-Lys that naturally occurs in human plasma. GHK-Cu stimulates collagen synthesis, promotes wound healing, and has potent anti-aging effects on skin.',
+    mechanism: 'GHK-Cu binds to copper ions and delivers them to cells, activating copper-dependent enzymes like lysyl oxidase and superoxide dismutase. It stimulates collagen and elastin synthesis, promotes glycosaminoglycan production, and modulates gene expression of over 4,000 genes related to tissue remodeling and anti-inflammatory responses.',
     useCases: ['skin-health', 'hair-growth', 'anti-aging'],
     chineseContext: {
       sourcing: 'Widely produced in Chinese cosmetic peptide industry with established quality standards',
@@ -94,6 +97,7 @@ export const PEPTIDES = [
     fullName: 'Ipamorelin (Growth Hormone Secretagogue)',
     status: 'clinical-trials',
     description: 'A selective growth hormone secretagogue that stimulates GH release without significantly affecting cortisol or prolactin levels. Known for promoting lean muscle growth and improving sleep quality.',
+    mechanism: 'Ipamorelin selectively binds to ghrelin receptors (GHS-R1a) in the pituitary gland, triggering pulsatile growth hormone release. Unlike other GH secretagogues, it does not significantly stimulate ACTH, cortisol, or prolactin release. This selectivity results from its specific receptor binding profile that mimics natural GH secretion patterns.',
     useCases: ['muscle-recovery', 'sleep', 'anti-aging'],
     chineseContext: {
       sourcing: 'Synthesized in specialized Chinese peptide laboratories with quality testing available',
@@ -123,6 +127,7 @@ export const PEPTIDES = [
     fullName: 'CJC-1295 (Modified GRF 1-29)',
     status: 'clinical-trials',
     description: 'A synthetic analog of growth hormone releasing hormone (GHRH) that promotes sustained growth hormone elevation. Often used for muscle building, fat loss, and anti-aging purposes.',
+    mechanism: 'CJC-1295 binds to GHRH receptors on pituitary somatotrophs, stimulating cAMP production and subsequent GH synthesis and release. The DAC (Drug Affinity Complex) version binds to albumin, extending half-life from minutes to days. This results in sustained GH elevation and increased IGF-1 production.',
     useCases: ['muscle-recovery', 'weight-loss', 'anti-aging'],
     chineseContext: {
       sourcing: 'Available from Chinese peptide manufacturers in both DAC and non-DAC versions',
@@ -152,6 +157,7 @@ export const PEPTIDES = [
     fullName: 'Melanotan II (MT-2)',
     status: 'unapproved',
     description: 'A synthetic analog of melanocyte-stimulating hormone that stimulates melanogenesis. Originally developed for skin protection, it also affects appetite suppression and libido enhancement.',
+    mechanism: 'Melanotan II is a non-selective agonist of melanocortin receptors (MC1R-MC5R). MC1R activation stimulates melanocytes to produce eumelanin (skin darkening). MC3R/MC4R activation in the hypothalamus suppresses appetite and enhances sexual arousal. This broad receptor activity explains its diverse effects.',
     useCases: ['weight-loss', 'skin-health'],
     chineseContext: {
       sourcing: 'Widely manufactured in Chinese facilities with significant quality variations',
@@ -182,6 +188,7 @@ export const PEPTIDES = [
     fullName: 'Selank (Synthetic Tuftsin Analog)',
     status: 'clinical-trials',
     description: 'A synthetic derivative of the human tetrapeptide tuftsin with pronounced anxiolytic activity. Developed in Russia, Selank modulates brain-derived neurotrophic factor and has nootropic effects.',
+    mechanism: 'Selank modulates GABAergic neurotransmission and increases BDNF expression in the hippocampus. It influences serotonin metabolism and enkephalin levels, producing anxiolytic effects without sedation. The peptide also enhances IL-6 expression and modulates the balance of T-helper cell cytokines.',
     useCases: ['cognitive', 'anxiety'],
     chineseContext: {
       sourcing: 'Manufactured in Chinese peptide facilities based on Russian research formulations',
@@ -211,6 +218,7 @@ export const PEPTIDES = [
     fullName: 'Semax (ACTH 4-10 Analog)',
     status: 'clinical-trials',
     description: 'A synthetic peptide based on ACTH (adrenocorticotropic hormone) fragments. Semax enhances cognitive function, memory, attention, and provides neuroprotection through BDNF modulation.',
+    mechanism: 'Semax increases BDNF and NGF expression in the brain, promoting neuroplasticity and neuronal survival. It modulates dopaminergic and serotoninergic systems, enhancing attention and memory consolidation. The peptide also inhibits inflammatory cytokines and reduces oxidative stress in neural tissue.',
     useCases: ['cognitive', 'neuroprotection'],
     chineseContext: {
       sourcing: 'Produced by Chinese manufacturers following Russian pharmaceutical standards',
@@ -240,6 +248,7 @@ export const PEPTIDES = [
     fullName: 'Epitalon (Epithalon)',
     status: 'unapproved',
     description: 'A synthetic tetrapeptide that acts as a telomerase activator, potentially slowing cellular aging. Originally developed in Russia for longevity and circadian rhythm regulation.',
+    mechanism: 'Epitalon activates telomerase, the enzyme that adds telomeric repeats to chromosome ends, potentially extending cellular lifespan. It stimulates melatonin production in the pineal gland, regulating circadian rhythms. The peptide also modulates antioxidant enzyme activity and influences neuroendocrine system function.',
     useCases: ['anti-aging', 'sleep', 'longevity'],
     chineseContext: {
       sourcing: 'Synthesized by Chinese peptide laboratories based on Russian research',
@@ -269,6 +278,7 @@ export const PEPTIDES = [
     fullName: 'Delta Sleep-Inducing Peptide',
     status: 'clinical-trials',
     description: 'A neuropeptide that influences sleep regulation, stress response, and pain perception. DSIP promotes deep, restorative sleep and may help with stress-related disorders.',
+    mechanism: 'DSIP modulates sleep architecture by influencing GABAergic and glutamatergic neurotransmission. It reduces cortisol and ACTH levels during stress, acting on the hypothalamic-pituitary-adrenal axis. The peptide also affects endorphin levels and has been shown to normalize disrupted circadian rhythms.',
     useCases: ['sleep', 'stress'],
     chineseContext: {
       sourcing: 'Available from Chinese peptide manufacturers with varying purity levels',
@@ -298,6 +308,7 @@ export const PEPTIDES = [
     fullName: 'Bremelanotide (PT-141)',
     status: 'approved',
     description: 'A melanocortin receptor agonist FDA-approved for treating hypoactive sexual desire disorder in women. Works through the central nervous system rather than vascular system.',
+    mechanism: 'PT-141 activates MC3R and MC4R receptors in the hypothalamus and limbic system, areas involved in sexual arousal and desire. Unlike PDE5 inhibitors, it works centrally rather than on vascular smooth muscle. This CNS-mediated mechanism increases sexual desire independent of blood flow effects.',
     useCases: ['libido', 'sexual-health'],
     chineseContext: {
       sourcing: 'Manufactured by Chinese pharmaceutical companies following FDA approval',
@@ -327,6 +338,7 @@ export const PEPTIDES = [
     fullName: 'Advanced Obesity Drug 9604',
     status: 'unapproved',
     description: 'A modified fragment of human growth hormone (HGH) designed to stimulate fat metabolism without affecting blood sugar or tissue growth. Developed specifically for obesity treatment.',
+    mechanism: 'AOD-9604 is a modified fragment (amino acids 177-191) of human growth hormone. It stimulates lipolysis by activating beta-3 adrenergic receptors on adipocytes. Unlike full GH, it lacks the IGF-1 binding domain, so it promotes fat breakdown without causing hyperglycemia or promoting tissue growth.',
     useCases: ['weight-loss', 'fat-loss'],
     chineseContext: {
       sourcing: 'Produced by Chinese peptide manufacturers for research purposes',
@@ -350,6 +362,68 @@ export const PEPTIDES = [
     dosage: '300-600 mcg daily, subcutaneous injection (research purposes only)',
     sideEffects: 'Limited human safety data. Potential injection site reactions.',
     warnings: ['Not approved for human use', 'Failed FDA approval process', 'Research chemical only']
+  }
+];
+
+// Common peptide resellers
+export const RESELLERS = [
+  {
+    name: 'Peptide Sciences',
+    url: 'https://www.peptidesciences.com',
+    location: 'USA',
+    note: 'US-based, third-party tested, research use only'
+  },
+  {
+    name: 'Swiss Chems',
+    url: 'https://www.swisschems.is',
+    location: 'Europe',
+    note: 'European supplier with COA available'
+  },
+  {
+    name: 'Amino Asylum',
+    url: 'https://aminoasylum.shop',
+    location: 'USA',
+    note: 'Competitive pricing, HPLC tested'
+  },
+  {
+    name: 'PureRawz',
+    url: 'https://www.purerawz.co',
+    location: 'USA',
+    note: 'Wide selection, third-party testing'
+  },
+  {
+    name: 'Biotech Peptides',
+    url: 'https://biotechpeptides.com',
+    location: 'USA',
+    note: 'Research peptides with purity reports'
+  }
+];
+
+// Testing laboratories for peptide verification
+export const TESTING_LABS = [
+  {
+    name: 'Janoshik Analytical',
+    url: 'https://janoshik.com',
+    location: 'Czech Republic',
+    services: 'HPLC, mass spectrometry, purity testing'
+  },
+  {
+    name: 'Lab4Tox',
+    url: 'https://www.lab4tox.co.uk',
+    location: 'UK',
+    services: 'Peptide analysis, contamination screening'
+  },
+  {
+    name: 'Colmaric Analyticals',
+    url: 'https://colmaric.com',
+    location: 'USA',
+    services: 'Pharmaceutical testing, identity verification'
+  },
+  {
+    name: 'Vimta Labs',
+    url: 'https://www.vimta.com',
+    location: 'India',
+    services: 'GLP certified, comprehensive peptide analysis'
   }
 ];
 

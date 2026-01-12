@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
+import { RESELLERS, TESTING_LABS } from '../../data/peptides';
 
 const TABS = [
   { id: 'description', label: 'Description' },
-  { id: 'history', label: 'History' },
+  { id: 'mechanism', label: 'Mechanism' },
   { id: 'studies', label: 'Studies' },
+  { id: 'resellers', label: 'Resellers' },
+  { id: 'testing-labs', label: 'Testing Labs' },
   { id: 'warnings', label: 'Warnings' },
 ];
 
@@ -26,13 +29,10 @@ const PeptideDetails = ({ peptide }) => {
             <p>{peptide.description}</p>
           </div>
         );
-      case 'history':
+      case 'mechanism':
         return (
           <div className="tab-content">
-            <p>
-              {peptide.name} has been studied since the early {peptide.studies[0]?.year || '2000'}s.
-              Research has focused on its therapeutic potential and mechanisms of action in various biological systems.
-            </p>
+            <p>{peptide.mechanism || 'Mechanism of action data not available.'}</p>
           </div>
         );
       case 'studies':
@@ -53,6 +53,56 @@ const PeptideDetails = ({ peptide }) => {
                     <span className="study-year">{study.year}</span>
                   </div>
                   <p className="study-summary">{study.summary}</p>
+                </li>
+              ))}
+            </ul>
+          </div>
+        );
+      case 'resellers':
+        return (
+          <div className="tab-content">
+            <ul className="resellers-list">
+              {RESELLERS.map((reseller, idx) => (
+                <li key={idx} className="reseller-item">
+                  <a
+                    href={reseller.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="reseller-link"
+                  >
+                    {reseller.name}
+                  </a>
+                  {reseller.location && (
+                    <span className="reseller-location">{reseller.location}</span>
+                  )}
+                  {reseller.note && (
+                    <p className="reseller-note">{reseller.note}</p>
+                  )}
+                </li>
+              ))}
+            </ul>
+          </div>
+        );
+      case 'testing-labs':
+        return (
+          <div className="tab-content">
+            <ul className="testing-labs-list">
+              {TESTING_LABS.map((lab, idx) => (
+                <li key={idx} className="testing-lab-item">
+                  <a
+                    href={lab.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="testing-lab-link"
+                  >
+                    {lab.name}
+                  </a>
+                  {lab.location && (
+                    <span className="testing-lab-location">{lab.location}</span>
+                  )}
+                  {lab.services && (
+                    <p className="testing-lab-services">{lab.services}</p>
+                  )}
                 </li>
               ))}
             </ul>

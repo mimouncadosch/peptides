@@ -209,6 +209,58 @@
   line-height: 1.5;
 }
 
+/* Resellers List */
+.resellers-list,
+.testing-labs-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+.reseller-item,
+.testing-lab-item {
+  padding: var(--spacing-sm) 0;
+  border-bottom: 1px solid rgba(0, 255, 255, 0.1);
+}
+
+.reseller-item:last-child,
+.testing-lab-item:last-child {
+  border-bottom: none;
+}
+
+.reseller-link,
+.testing-lab-link {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--neon-cyan);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.reseller-link:hover,
+.testing-lab-link:hover {
+  color: var(--neon-magenta);
+}
+
+.reseller-location,
+.testing-lab-location {
+  display: block;
+  font-size: 0.8rem;
+  color: var(--neon-purple);
+  margin-top: var(--spacing-xs);
+}
+
+.reseller-note,
+.testing-lab-services {
+  font-size: 0.85rem;
+  color: rgba(0, 255, 255, 0.7);
+  line-height: 1.5;
+  margin-top: var(--spacing-xs);
+}
+
 /* Warnings */
 .warnings-list {
   list-style: none;
