@@ -35,8 +35,7 @@ const FilterBar = ({ activeFilters, onFilterChange }) => {
           title={useCase.description}
           aria-pressed={activeFilters.includes(useCase.id)}
         >
-          <span className="icon" aria-hidden="true">{useCase.icon}</span>
-          <span>{useCase.label}</span>
+          {useCase.label}
         </button>
       ))}
     </div>

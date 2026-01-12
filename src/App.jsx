@@ -18,55 +18,16 @@ import './styles/right-pane.css';
  * Right pane: Detailed view with 3D molecule
  */
 function App() {
-  // State
-  const [selectedPeptide, setSelectedPeptide] = useState(PEPTIDES[0]); // Default to first
-  const [searchQuery, setSearchQuery] = useState('');
+  const [selectedPeptide, setSelectedPeptide] = useState(PEPTIDES[0]);
   const [activeFilters, setActiveFilters] = useState([]);
-  const [sortBy, setSortBy] = useState('name');
-  const [sortOrder, setSortOrder] = useState('asc');
 
-  // Filter and search peptides
+  // Filter peptides by use case
   const filteredPeptides = useMemo(() => {
-    let result = PEPTIDES;
-
-    // Apply use case filters
-    if (activeFilters.length > 0) {
-      result = result.filter(peptide =>
-        peptide.useCases.some(useCase => activeFilters.includes(useCase))
-      );
-    }
-
-    // Apply search
-    if (searchQuery.trim()) {
-      const query = searchQuery.toLowerCase();
-      result = result.filter(peptide =>
-        peptide.name.toLowerCase().includes(query) ||
-        peptide.fullName.toLowerCase().includes(query) ||
-        peptide.description.toLowerCase().includes(query)
-      );
-    }
-
-    // Apply sort
-    result = [...result].sort((a, b) => {
-      let comparison = 0;
-
-      if (sortBy === 'name') {
-        comparison = a.name.localeCompare(b.name);
-      } else if (sortBy === 'status') {
-        const statusOrder = { 'approved': 0, 'clinical-trials': 1, 'unapproved': 2 };
-        comparison = statusOrder[a.status] - statusOrder[b.status];
-      }
-
-      return sortOrder === 'asc' ? comparison : -comparison;
-    });
-
-    return result;
-  }, [searchQuery, activeFilters, sortBy, sortOrder]);
-
-  // Handle sort order toggle
-  const handleOrderChange = () => {
-    setSortOrder(prev => prev === 'asc' ? 'desc' : 'asc');
-  };
+    if (activeFilters.length === 0) return PEPTIDES;
+    return PEPTIDES.filter(peptide =>
+      peptide.useCases.some(useCase => activeFilters.includes(useCase))
+    );
+  }, [activeFilters]);
 
   return (
     <>
@@ -89,12 +50,6 @@ function App() {
             peptides={filteredPeptides}
             selectedPeptide={selectedPeptide}
             onSelectPeptide={setSelectedPeptide}
-            searchQuery={searchQuery}
-            onSearchChange={setSearchQuery}
-            sortBy={sortBy}
-            sortOrder={sortOrder}
-            onSortChange={setSortBy}
-            onOrderChange={handleOrderChange}
             activeFilters={activeFilters}
             onFilterChange={setActiveFilters}
           />

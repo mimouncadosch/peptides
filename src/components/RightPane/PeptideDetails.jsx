@@ -1,148 +1,94 @@
-import React from 'react';
-import StatusBadge from '../StatusBadge';
-import StatsDisplay from '../StatsDisplay';
-import { USE_CASES } from '../../data/peptides';
-import { getPeptideCharacterData } from '../../data/peptideStats';
+import React, { useState } from 'react';
+
+const TABS = [
+  { id: 'description', label: 'Description' },
+  { id: 'history', label: 'History' },
+  { id: 'studies', label: 'Studies' },
+  { id: 'warnings', label: 'Warnings' },
+];
 
 /**
- * PeptideDetails Component - Full detail view (pokedex style)
+ * PeptideDetails Component - Tabbed detail sections
  */
 const PeptideDetails = ({ peptide }) => {
-  const characterData = getPeptideCharacterData(peptide);
-  const useCaseLabels = peptide.useCases
-    .map(id => USE_CASES.find(uc => uc.id === id))
-    .filter(Boolean);
+  const [activeTab, setActiveTab] = useState('description');
+
+  const availableTabs = TABS.filter(tab => {
+    if (tab.id === 'warnings') return peptide.warnings?.length > 0;
+    return true;
+  });
+
+  const renderTabContent = () => {
+    switch (activeTab) {
+      case 'description':
+        return (
+          <div className="tab-content">
+            <p>{peptide.description}</p>
+          </div>
+        );
+      case 'history':
+        return (
+          <div className="tab-content">
+            <p>
+              {peptide.name} has been studied since the early {peptide.studies[0]?.year || '2000'}s.
+              Research has focused on its therapeutic potential and mechanisms of action in various biological systems.
+            </p>
+          </div>
+        );
+      case 'studies':
+        return (
+          <div className="tab-content">
+            <ul className="studies-list">
+              {peptide.studies.map((study, idx) => (
+                <li key={idx} className="study-item">
+                  <a
+                    href={study.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="study-link"
+                  >
+                    {study.title}
+                  </a>
+                  <div className="study-meta">
+                    <span className="study-year">{study.year}</span>
+                  </div>
+                  <p className="study-summary">{study.summary}</p>
+                </li>
+              ))}
+            </ul>
+          </div>
+        );
+      case 'warnings':
+        return (
+          <div className="tab-content">
+            <ul className="warnings-list">
+              {peptide.warnings?.map((warning, idx) => (
+                <li key={idx} className="warning-item">
+                  {warning}
+                </li>
+              ))}
+            </ul>
+          </div>
+        );
+      default:
+        return null;
+    }
+  };
 
   return (
-    <div>
-      {/* Header */}
-      <div className="detail-header">
-        <h1 className="detail-title">{peptide.name}</h1>
-        <p className="detail-subtitle">{peptide.fullName}</p>
-        <div className="detail-badges">
-          <StatusBadge status={peptide.status} />
-          {peptide.warnings && (
-            <span className="warning-badge">
-              ⚠ {peptide.warnings.length} WARNING{peptide.warnings.length !== 1 ? 'S' : ''}
-            </span>
-          )}
-        </div>
-      </div>
-
-      {/* Use Cases */}
-      <div className="use-cases-detail">
-        {useCaseLabels.map(useCase => (
-          <span key={useCase.id} className="use-case-tag-large">
-            <span>{useCase.icon}</span>
-            <span>{useCase.label}</span>
-          </span>
+    <div className="peptide-details-content">
+      <div className="details-tabs">
+        {availableTabs.map(tab => (
+          <button
+            key={tab.id}
+            className={`tab-button ${activeTab === tab.id ? 'active' : ''}`}
+            onClick={() => setActiveTab(tab.id)}
+          >
+            {tab.label}
+          </button>
         ))}
       </div>
-
-      {/* Stats */}
-      <div className="stats-section">
-        <h2 className="stats-section-title">Effectiveness Profile</h2>
-        <StatsDisplay stats={characterData.stats} compact={false} />
-      </div>
-
-      {/* Description */}
-      <div className="detail-section">
-        <h2 className="detail-section-title">
-          <span className="detail-section-icon">📋</span>
-          Description
-        </h2>
-        <div className="detail-section-content">
-          <p>{peptide.description}</p>
-        </div>
-      </div>
-
-      {/* Chinese Market Context */}
-      <div className="detail-section">
-        <h2 className="detail-section-title">
-          <span className="detail-section-icon">🇨🇳</span>
-          Chinese Market Context
-        </h2>
-        <div className="detail-section-content info-grid">
-          <div className="info-grid-item">
-            <div className="info-grid-label">Sourcing</div>
-            <div className="info-grid-value">{peptide.chineseContext.sourcing}</div>
-          </div>
-          <div className="info-grid-item">
-            <div className="info-grid-label">Popularity</div>
-            <div className="info-grid-value">{peptide.chineseContext.popularity}</div>
-          </div>
-          <div className="info-grid-item" style={{ gridColumn: '1 / -1' }}>
-            <div className="info-grid-label">Notes</div>
-            <div className="info-grid-value">{peptide.chineseContext.notes}</div>
-          </div>
-        </div>
-      </div>
-
-      {/* Studies & Evidence */}
-      <div className="detail-section">
-        <h2 className="detail-section-title">
-          <span className="detail-section-icon">📚</span>
-          Research & Evidence
-        </h2>
-        <ul className="studies-list">
-          {peptide.studies.map((study, idx) => (
-            <li key={idx} className="study-item">
-              <a
-                href={study.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="study-link"
-              >
-                {study.title}
-              </a>
-              <div className="study-meta">
-                <span className="study-year">{study.year}</span>
-              </div>
-              <p className="study-summary">{study.summary}</p>
-            </li>
-          ))}
-        </ul>
-      </div>
-
-      {/* Dosage */}
-      <div className="detail-section">
-        <h2 className="detail-section-title">
-          <span className="detail-section-icon">💉</span>
-          Dosage Information
-        </h2>
-        <div className="detail-section-content">
-          <p>{peptide.dosage}</p>
-        </div>
-      </div>
-
-      {/* Side Effects */}
-      <div className="detail-section">
-        <h2 className="detail-section-title">
-          <span className="detail-section-icon">⚠️</span>
-          Side Effects
-        </h2>
-        <div className="detail-section-content">
-          <p>{peptide.sideEffects}</p>
-        </div>
-      </div>
-
-      {/* Warnings */}
-      {peptide.warnings && (
-        <div className="detail-section">
-          <h2 className="detail-section-title">
-            <span className="detail-section-icon">🚨</span>
-            Important Warnings
-          </h2>
-          <ul className="warnings-list">
-            {peptide.warnings.map((warning, idx) => (
-              <li key={idx} className="warning-item">
-                <span className="warning-icon">⚠</span>
-                <span>{warning}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}
+      {renderTabContent()}
     </div>
   );
 };

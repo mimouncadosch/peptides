@@ -1,68 +1,143 @@
-/* Right Pane - Detail View (Pokedex) Styles */
+/* Right Pane - Detail View Styles */
 
-.right-pane-content {
+/* Two-Column Split Layout */
+.right-pane-split {
+  display: flex;
+  height: 100%;
+}
+
+/* Left Column: Main Info */
+.right-pane-info {
+  width: 320px;
+  flex-shrink: 0;
   padding: var(--spacing-lg);
-  animation: fadeIn 0.4s ease-out;
+  border-right: 1px solid rgba(0, 255, 255, 0.2);
+  text-align: center;
+  overflow-y: auto;
+}
+
+.info-title {
+  font-size: 1.8rem;
+  margin-bottom: 0.5rem;
+  color: var(--neon-cyan);
+}
+
+.info-subtitle {
+  font-size: 0.9rem;
+  color: var(--neon-purple);
+  opacity: 0.9;
+  margin-bottom: var(--spacing-sm);
+}
+
+/* Right Column: Details */
+.right-pane-details {
+  flex: 1;
+  padding: var(--spacing-lg);
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Use Cases in Info Panel */
+.info-use-cases {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-xs);
+  justify-content: center;
+  margin-top: var(--spacing-md);
+}
+
+.info-use-case-tag {
+  padding: 0.4rem 0.8rem;
+  border: 1px solid var(--neon-purple);
+  color: var(--neon-purple);
+  font-size: 0.75rem;
+  font-family: 'Orbitron', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* Tabs */
+.details-tabs {
+  display: flex;
+  gap: var(--spacing-xs);
+  border-bottom: 1px solid rgba(0, 255, 255, 0.3);
+  margin-bottom: var(--spacing-md);
+}
+
+.tab-button {
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid transparent;
+  color: rgba(0, 255, 255, 0.6);
+  padding: 0.6rem 1rem;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.tab-button:hover {
+  color: var(--neon-cyan);
+}
+
+.tab-button.active {
+  color: var(--neon-cyan);
+  border-bottom-color: var(--neon-cyan);
+}
+
+/* Tab Content */
+.tab-content {
+  flex: 1;
+  color: rgba(0, 255, 255, 0.9);
+  line-height: 1.8;
+}
+
+.tab-content p {
+  margin-bottom: var(--spacing-sm);
+}
+
+.peptide-details-content {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
 
 /* Molecule Viewer Section */
 .molecule-viewer-section {
-  margin-bottom: var(--spacing-xl);
   text-align: center;
 }
 
 .molecule-viewer-container {
   width: 100%;
-  max-width: 600px;
-  height: 400px;
-  margin: 0 auto var(--spacing-md);
-  border: 2px solid var(--neon-cyan);
-  background: rgba(0, 0, 0, 0.8);
+  max-width: 280px;
+  margin: 0 auto var(--spacing-sm);
   position: relative;
-  box-shadow: var(--glow-cyan);
-}
-
-.molecule-viewer {
-  width: 100%;
-  height: 100%;
 }
 
 .molecule-viewer-loading {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background: rgba(0, 0, 0, 0.9);
+  padding: var(--spacing-lg);
   color: var(--neon-cyan);
   font-family: 'Orbitron', sans-serif;
   text-transform: uppercase;
-  letter-spacing: 0.2em;
-  animation: pulse 2s infinite;
-}
-
-.molecule-viewer-loading-spinner {
-  width: 40px;
-  height: 40px;
-  border: 3px solid rgba(0, 255, 255, 0.2);
-  border-top-color: var(--neon-cyan);
-  border-radius: 50%;
-  animation: rotate 1s linear infinite;
-  margin-bottom: var(--spacing-sm);
+  letter-spacing: 0.1em;
+  font-size: 0.8rem;
 }
 
 .molecule-info {
   display: flex;
   justify-content: center;
-  gap: var(--spacing-lg);
+  gap: var(--spacing-md);
   flex-wrap: wrap;
-  font-size: 0.8rem;
+  font-size: 0.75rem;
   color: var(--neon-purple);
-  opacity: 0.8;
+  margin-bottom: var(--spacing-xs);
 }
 
 .molecule-info-item {
@@ -74,7 +149,7 @@
 
 .molecule-info-label {
   font-family: 'Orbitron', sans-serif;
-  font-size: 0.7rem;
+  font-size: 0.65rem;
   text-transform: uppercase;
   letter-spacing: 0.1em;
 }
@@ -82,113 +157,7 @@
 .molecule-info-value {
   font-family: 'Share Tech Mono', monospace;
   color: var(--neon-cyan);
-}
-
-/* Detail Header */
-.detail-header {
-  text-align: center;
-  margin-bottom: var(--spacing-xl);
-  padding-bottom: var(--spacing-lg);
-}
-
-.detail-title {
-  font-size: 2.5rem;
-  margin-bottom: var(--spacing-xs);
-  color: var(--neon-cyan);
-  text-shadow: var(--glow-cyan);
-  animation: glow-pulse 3s ease-in-out infinite;
-}
-
-.detail-subtitle {
-  font-size: 1.1rem;
-  color: var(--neon-purple);
-  opacity: 0.9;
-  margin-bottom: var(--spacing-sm);
-}
-
-.detail-badges {
-  display: flex;
-  gap: var(--spacing-sm);
-  justify-content: center;
-  flex-wrap: wrap;
-  margin-top: var(--spacing-md);
-}
-
-/* Stats Section */
-.stats-section {
-  margin-bottom: var(--spacing-xl);
-  padding: var(--spacing-lg);
-  background: rgba(0, 0, 0, 0.5);
-  border: 1px solid rgba(0, 255, 255, 0.3);
-}
-
-.stats-section-title {
-  font-size: 1.2rem;
-  color: var(--neon-magenta);
-  margin-bottom: var(--spacing-md);
-  text-align: center;
-  text-transform: uppercase;
-  letter-spacing: 0.15em;
-}
-
-/* Detail Sections */
-.detail-section {
-  margin-bottom: var(--spacing-xl);
-  padding: var(--spacing-lg);
-  background: rgba(0, 0, 0, 0.3);
-  border-left: 3px solid var(--neon-cyan);
-}
-
-.detail-section-title {
-  font-size: 1.3rem;
-  color: var(--neon-cyan);
-  margin-bottom: var(--spacing-md);
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  display: flex;
-  align-items: center;
-  gap: var(--spacing-sm);
-}
-
-.detail-section-icon {
-  font-size: 1.2em;
-}
-
-.detail-section-content {
-  color: rgba(0, 255, 255, 0.9);
-  line-height: 1.8;
-}
-
-.detail-section-content p {
-  margin-bottom: var(--spacing-sm);
-}
-
-/* Info Grid */
-.info-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: var(--spacing-md);
-  margin-top: var(--spacing-md);
-}
-
-.info-grid-item {
-  padding: var(--spacing-sm);
-  background: rgba(0, 0, 0, 0.5);
-  border: 1px solid rgba(0, 255, 255, 0.2);
-}
-
-.info-grid-label {
-  font-family: 'Orbitron', sans-serif;
-  font-size: 0.8rem;
-  color: var(--neon-magenta);
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  margin-bottom: 0.25rem;
-}
-
-.info-grid-value {
-  color: var(--neon-cyan);
-  font-size: 0.9rem;
+  font-size: 0.7rem;
 }
 
 /* Studies List */
@@ -202,109 +171,42 @@
 }
 
 .study-item {
-  padding: var(--spacing-md);
-  background: rgba(0, 255, 255, 0.05);
-  border-left: 3px solid var(--neon-cyan);
-  transition: all 0.3s ease;
+  padding: var(--spacing-sm) 0;
+  border-bottom: 1px solid rgba(0, 255, 255, 0.1);
 }
 
-.study-item:hover {
-  background: rgba(0, 255, 255, 0.1);
-  border-left-color: var(--neon-magenta);
+.study-item:last-child {
+  border-bottom: none;
 }
 
 .study-link {
-  font-size: 1rem;
-  font-weight: 700;
+  font-size: 0.95rem;
+  font-weight: 600;
   color: var(--neon-cyan);
   text-decoration: none;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  margin-bottom: var(--spacing-xs);
-  transition: color 0.3s ease;
+  transition: color 0.2s ease;
 }
 
 .study-link:hover {
   color: var(--neon-magenta);
 }
 
-.study-link::after {
-  content: '↗';
-  font-size: 0.9em;
-}
-
 .study-meta {
   display: flex;
   gap: var(--spacing-sm);
-  font-size: 0.85rem;
-  margin-bottom: var(--spacing-xs);
+  font-size: 0.8rem;
+  margin: var(--spacing-xs) 0;
 }
 
 .study-year {
   color: var(--neon-yellow);
-  font-weight: 700;
+  font-weight: 600;
 }
 
 .study-summary {
-  font-size: 0.9rem;
-  color: rgba(0, 255, 255, 0.8);
-  line-height: 1.6;
-}
-
-/* Comparison Section */
-.comparison-section {
-  margin-top: var(--spacing-xl);
-  padding: var(--spacing-lg);
-  background: rgba(157, 0, 255, 0.1);
-  border: 2px solid var(--neon-purple);
-}
-
-.comparison-title {
-  font-size: 1.2rem;
-  color: var(--neon-purple);
-  margin-bottom: var(--spacing-md);
-  text-transform: uppercase;
-  letter-spacing: 0.15em;
-  text-align: center;
-}
-
-.comparison-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-  gap: var(--spacing-md);
-}
-
-.comparison-item {
-  text-align: center;
-  padding: var(--spacing-md);
-  background: rgba(0, 0, 0, 0.5);
-  border: 1px solid rgba(157, 0, 255, 0.3);
-}
-
-.comparison-label {
-  font-family: 'Orbitron', sans-serif;
-  font-size: 0.75rem;
-  color: var(--neon-purple);
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  margin-bottom: 0.5rem;
-}
-
-.comparison-value {
-  font-size: 1.5rem;
-  color: var(--neon-cyan);
-  font-weight: 700;
-}
-
-.comparison-indicator {
-  font-size: 0.8rem;
-  color: var(--neon-green);
-  margin-top: 0.25rem;
-}
-
-.comparison-indicator.negative {
-  color: var(--neon-magenta);
+  font-size: 0.85rem;
+  color: rgba(0, 255, 255, 0.7);
+  line-height: 1.5;
 }
 
 /* Warnings */
@@ -319,80 +221,51 @@
 
 .warning-item {
   padding: var(--spacing-sm);
-  background: rgba(255, 0, 0, 0.1);
-  border-left: 3px solid #ff0000;
-  color: #ff0000;
-  font-weight: 700;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.warning-icon {
-  font-size: 1.2em;
-}
-
-/* Use Case Tags in Detail View */
-.use-cases-detail {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--spacing-sm);
-  justify-content: center;
-  margin: var(--spacing-lg) 0;
-}
-
-.use-case-tag-large {
-  padding: 0.6rem 1.2rem;
-  background: rgba(157, 0, 255, 0.2);
-  border: 2px solid var(--neon-purple);
-  color: var(--neon-purple);
+  border-left: 2px solid #ff4444;
+  color: #ff6666;
   font-size: 0.9rem;
-  font-family: 'Orbitron', sans-serif;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  box-shadow: 0 0 10px rgba(157, 0, 255, 0.3);
 }
 
 /* Responsive */
+@media (max-width: 1024px) {
+  .right-pane-info {
+    width: 280px;
+  }
+}
+
 @media (max-width: 768px) {
-  .right-pane-content {
-    padding: var(--spacing-md);
+  .right-pane-split {
+    flex-direction: column;
+  }
+
+  .right-pane-info {
+    width: 100%;
+    border-right: none;
+    border-bottom: 1px solid rgba(0, 255, 255, 0.2);
+    overflow-y: visible;
+  }
+
+  .right-pane-details {
+    flex: 1;
+    overflow-y: auto;
   }
 
   .molecule-viewer-container {
-    height: 300px;
-  }
-
-  .detail-title {
-    font-size: 2rem;
-  }
-
-  .detail-subtitle {
-    font-size: 1rem;
-  }
-
-  .info-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .comparison-grid {
-    grid-template-columns: 1fr 1fr;
+    max-width: 200px;
   }
 }
 
 @media (max-width: 480px) {
-  .molecule-viewer-container {
-    height: 250px;
-  }
-
-  .detail-title {
-    font-size: 1.6rem;
+  .info-title {
+    font-size: 1.5rem;
   }
 
   .molecule-info {
+    font-size: 0.65rem;
+  }
+
+  .tab-button {
+    padding: 0.5rem 0.7rem;
     font-size: 0.7rem;
   }
 }

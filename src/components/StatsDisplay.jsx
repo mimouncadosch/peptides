@@ -40,9 +40,6 @@ const StatsDisplay = ({ stats, compact = false }) => {
           return (
             <div key={statKey} className="stat-row">
               <div className="stat-header">
-                <span className="stat-icon" aria-hidden="true">
-                  {category.icon}
-                </span>
                 <span className="stat-label">{category.label}</span>
                 <span className="stat-value">{Math.round(value)}%</span>
               </div>

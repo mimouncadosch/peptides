@@ -1,6 +1,4 @@
 import React, { useState } from 'react';
-import SearchBar from './SearchBar';
-import SortControls from './SortControls';
 import PeptideListItem from './PeptideListItem';
 import { USE_CASES } from '../../data/peptides';
 
@@ -11,12 +9,6 @@ const LeftPane = ({
   peptides,
   selectedPeptide,
   onSelectPeptide,
-  searchQuery,
-  onSearchChange,
-  sortBy,
-  sortOrder,
-  onSortChange,
-  onOrderChange,
   activeFilters,
   onFilterChange
 }) => {
@@ -24,19 +16,6 @@ const LeftPane = ({
 
   return (
     <div className="left-pane">
-      {/* Search and Sort Controls */}
-      <div className="left-pane-section">
-        <SearchBar
-          searchQuery={searchQuery}
-          onSearchChange={onSearchChange}
-        />
-        <SortControls
-          sortBy={sortBy}
-          sortOrder={sortOrder}
-          onSortChange={onSortChange}
-          onOrderChange={onOrderChange}
-        />
-      </div>
 
       {/* Filters */}
       <div className={`filter-section ${filtersCollapsed ? 'collapsed' : ''}`}>
@@ -61,8 +40,7 @@ const LeftPane = ({
                   }
                 }}
               >
-                <span className="filter-chip-icon">{useCase.icon}</span>
-                <span>{useCase.label}</span>
+                {useCase.label}
               </button>
             ))}
           </div>

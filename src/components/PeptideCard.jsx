@@ -97,7 +97,7 @@ const PeptideCard = React.memo(({ peptide, selected, onToggleSelect }) => {
       <div className="use-cases">
         {useCaseLabels.map(useCase => (
           <span key={useCase.id} className="use-case-tag" title={useCase.description}>
-            {useCase.icon} {useCase.label}
+            {useCase.label}
           </span>
         ))}
       </div>
