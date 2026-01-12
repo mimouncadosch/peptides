@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { RESELLERS, TESTING_LABS } from '../../data/peptides';
+import { TESTING_LABS } from '../../data/peptides';
 
 const TABS = [
   { id: 'description', label: 'Description' },
@@ -61,26 +61,35 @@ const PeptideDetails = ({ peptide }) => {
       case 'resellers':
         return (
           <div className="tab-content">
-            <ul className="resellers-list">
-              {RESELLERS.map((reseller, idx) => (
-                <li key={idx} className="reseller-item">
-                  <a
-                    href={reseller.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="reseller-link"
-                  >
-                    {reseller.name}
-                  </a>
-                  {reseller.location && (
-                    <span className="reseller-location">{reseller.location}</span>
-                  )}
-                  {reseller.note && (
-                    <p className="reseller-note">{reseller.note}</p>
-                  )}
-                </li>
-              ))}
-            </ul>
+            <table className="resellers-table">
+              <thead>
+                <tr>
+                  <th>Reseller</th>
+                  <th>Product</th>
+                  <th>Price</th>
+                  <th>Link</th>
+                </tr>
+              </thead>
+              <tbody>
+                {peptide.resellers?.map((item, idx) => (
+                  <tr key={idx}>
+                    <td>{item.reseller}</td>
+                    <td>{item.product}</td>
+                    <td>{item.price}</td>
+                    <td>
+                      <a
+                        href={item.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="reseller-link"
+                      >
+                        Buy
+                      </a>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </div>
         );
       case 'testing-labs':

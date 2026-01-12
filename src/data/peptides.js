@@ -9,6 +9,11 @@ export const PEPTIDES = [
     description: 'A pentadecapeptide derived from a protective gastric protein. BPC-157 has shown remarkable healing properties in preclinical studies, promoting angiogenesis, tissue repair, and protection against various injuries.',
     mechanism: 'BPC-157 modulates the nitric oxide (NO) system, promoting angiogenesis through VEGF upregulation. It activates FAK-paxillin signaling pathways to enhance cell migration and tissue repair. The peptide also interacts with the dopaminergic system and influences growth hormone receptor expression, contributing to its regenerative effects.',
     useCases: ['muscle-recovery', 'injury-healing', 'gut-health'],
+    resellers: [
+      { reseller: 'Peptide Sciences', product: 'BPC-157 5mg', price: '$39.99', url: 'https://www.peptidesciences.com/bpc-157-5mg' },
+      { reseller: 'Swiss Chems', product: 'BPC-157 5mg', price: '$42.95', url: 'https://swisschems.is/product/bpc-157-5mg' },
+      { reseller: 'Amino Asylum', product: 'BPC-157 5mg', price: '$36.99', url: 'https://aminoasylum.shop/product/bpc-157' },
+    ],
     chineseContext: {
       sourcing: 'Commonly synthesized in Chinese pharmaceutical facilities with varying purity levels (95-99%)',
       popularity: 'Extremely high demand in biohacking and athletic recovery communities',
@@ -39,6 +44,11 @@ export const PEPTIDES = [
     description: 'A naturally occurring peptide present in high concentrations in blood platelets, wound fluid, and other tissues. TB-500 promotes cell migration, differentiation, and tissue repair through multiple pathways.',
     mechanism: 'TB-500 sequesters G-actin monomers, promoting actin polymerization and cytoskeletal reorganization essential for cell migration. It upregulates cell surface receptors and facilitates blood vessel formation. The peptide also reduces inflammation by inhibiting NF-κB activation and promotes stem cell differentiation for tissue regeneration.',
     useCases: ['muscle-recovery', 'injury-healing', 'flexibility'],
+    resellers: [
+      { reseller: 'Peptide Sciences', product: 'TB-500 2mg', price: '$32.99', url: 'https://www.peptidesciences.com/tb-500-2mg' },
+      { reseller: 'Swiss Chems', product: 'TB-500 5mg', price: '$54.95', url: 'https://swisschems.is/product/tb-500-5mg' },
+      { reseller: 'PureRawz', product: 'TB-500 5mg', price: '$49.99', url: 'https://www.purerawz.co/products/tb-500' },
+    ],
     chineseContext: {
       sourcing: 'Manufactured in Chinese peptide synthesis labs with quality ranging from research to pharmaceutical grade',
       popularity: 'Popular among athletes and fitness enthusiasts for injury recovery',
@@ -69,6 +79,11 @@ export const PEPTIDES = [
     description: 'A copper complex of the tripeptide Gly-His-Lys that naturally occurs in human plasma. GHK-Cu stimulates collagen synthesis, promotes wound healing, and has potent anti-aging effects on skin.',
     mechanism: 'GHK-Cu binds to copper ions and delivers them to cells, activating copper-dependent enzymes like lysyl oxidase and superoxide dismutase. It stimulates collagen and elastin synthesis, promotes glycosaminoglycan production, and modulates gene expression of over 4,000 genes related to tissue remodeling and anti-inflammatory responses.',
     useCases: ['skin-health', 'hair-growth', 'anti-aging'],
+    resellers: [
+      { reseller: 'Peptide Sciences', product: 'GHK-Cu 50mg', price: '$44.99', url: 'https://www.peptidesciences.com/ghk-cu-50mg' },
+      { reseller: 'Swiss Chems', product: 'GHK-Cu 50mg', price: '$47.95', url: 'https://swisschems.is/product/ghk-cu' },
+      { reseller: 'Biotech Peptides', product: 'GHK-Cu 100mg', price: '$79.99', url: 'https://biotechpeptides.com/product/ghk-cu' },
+    ],
     chineseContext: {
       sourcing: 'Widely produced in Chinese cosmetic peptide industry with established quality standards',
       popularity: 'Extremely popular in skincare formulations and anti-aging products',
@@ -99,6 +114,11 @@ export const PEPTIDES = [
     description: 'A selective growth hormone secretagogue that stimulates GH release without significantly affecting cortisol or prolactin levels. Known for promoting lean muscle growth and improving sleep quality.',
     mechanism: 'Ipamorelin selectively binds to ghrelin receptors (GHS-R1a) in the pituitary gland, triggering pulsatile growth hormone release. Unlike other GH secretagogues, it does not significantly stimulate ACTH, cortisol, or prolactin release. This selectivity results from its specific receptor binding profile that mimics natural GH secretion patterns.',
     useCases: ['muscle-recovery', 'sleep', 'anti-aging'],
+    resellers: [
+      { reseller: 'Peptide Sciences', product: 'Ipamorelin 5mg', price: '$29.99', url: 'https://www.peptidesciences.com/ipamorelin-5mg' },
+      { reseller: 'Amino Asylum', product: 'Ipamorelin 5mg', price: '$27.99', url: 'https://aminoasylum.shop/product/ipamorelin' },
+      { reseller: 'PureRawz', product: 'Ipamorelin 5mg', price: '$31.99', url: 'https://www.purerawz.co/products/ipamorelin' },
+    ],
     chineseContext: {
       sourcing: 'Synthesized in specialized Chinese peptide laboratories with quality testing available',
       popularity: 'High demand in anti-aging and bodybuilding communities',
@@ -129,6 +149,11 @@ export const PEPTIDES = [
     description: 'A synthetic analog of growth hormone releasing hormone (GHRH) that promotes sustained growth hormone elevation. Often used for muscle building, fat loss, and anti-aging purposes.',
     mechanism: 'CJC-1295 binds to GHRH receptors on pituitary somatotrophs, stimulating cAMP production and subsequent GH synthesis and release. The DAC (Drug Affinity Complex) version binds to albumin, extending half-life from minutes to days. This results in sustained GH elevation and increased IGF-1 production.',
     useCases: ['muscle-recovery', 'weight-loss', 'anti-aging'],
+    resellers: [
+      { reseller: 'Peptide Sciences', product: 'CJC-1295 DAC 2mg', price: '$42.99', url: 'https://www.peptidesciences.com/cjc-1295-dac-2mg' },
+      { reseller: 'Swiss Chems', product: 'CJC-1295 DAC 2mg', price: '$45.95', url: 'https://swisschems.is/product/cjc-1295-dac' },
+      { reseller: 'Amino Asylum', product: 'CJC-1295 no DAC 2mg', price: '$34.99', url: 'https://aminoasylum.shop/product/cjc-1295' },
+    ],
     chineseContext: {
       sourcing: 'Available from Chinese peptide manufacturers in both DAC and non-DAC versions',
       popularity: 'Widely used in performance enhancement and longevity protocols',
@@ -159,6 +184,11 @@ export const PEPTIDES = [
     description: 'A synthetic analog of melanocyte-stimulating hormone that stimulates melanogenesis. Originally developed for skin protection, it also affects appetite suppression and libido enhancement.',
     mechanism: 'Melanotan II is a non-selective agonist of melanocortin receptors (MC1R-MC5R). MC1R activation stimulates melanocytes to produce eumelanin (skin darkening). MC3R/MC4R activation in the hypothalamus suppresses appetite and enhances sexual arousal. This broad receptor activity explains its diverse effects.',
     useCases: ['weight-loss', 'skin-health'],
+    resellers: [
+      { reseller: 'Peptide Sciences', product: 'Melanotan II 10mg', price: '$29.99', url: 'https://www.peptidesciences.com/melanotan-2-10mg' },
+      { reseller: 'Swiss Chems', product: 'Melanotan II 10mg', price: '$32.95', url: 'https://swisschems.is/product/melanotan-ii' },
+      { reseller: 'PureRawz', product: 'Melanotan II 10mg', price: '$27.99', url: 'https://www.purerawz.co/products/melanotan-ii' },
+    ],
     chineseContext: {
       sourcing: 'Widely manufactured in Chinese facilities with significant quality variations',
       popularity: 'High demand in bodybuilding and tanning communities despite unapproved status',
@@ -190,6 +220,11 @@ export const PEPTIDES = [
     description: 'A synthetic derivative of the human tetrapeptide tuftsin with pronounced anxiolytic activity. Developed in Russia, Selank modulates brain-derived neurotrophic factor and has nootropic effects.',
     mechanism: 'Selank modulates GABAergic neurotransmission and increases BDNF expression in the hippocampus. It influences serotonin metabolism and enkephalin levels, producing anxiolytic effects without sedation. The peptide also enhances IL-6 expression and modulates the balance of T-helper cell cytokines.',
     useCases: ['cognitive', 'anxiety'],
+    resellers: [
+      { reseller: 'Peptide Sciences', product: 'Selank 5mg', price: '$49.99', url: 'https://www.peptidesciences.com/selank-5mg' },
+      { reseller: 'Swiss Chems', product: 'Selank Nasal 5mg', price: '$52.95', url: 'https://swisschems.is/product/selank' },
+      { reseller: 'Biotech Peptides', product: 'Selank 10mg', price: '$84.99', url: 'https://biotechpeptides.com/product/selank' },
+    ],
     chineseContext: {
       sourcing: 'Manufactured in Chinese peptide facilities based on Russian research formulations',
       popularity: 'Growing interest in nootropic and biohacking communities',
@@ -220,6 +255,11 @@ export const PEPTIDES = [
     description: 'A synthetic peptide based on ACTH (adrenocorticotropic hormone) fragments. Semax enhances cognitive function, memory, attention, and provides neuroprotection through BDNF modulation.',
     mechanism: 'Semax increases BDNF and NGF expression in the brain, promoting neuroplasticity and neuronal survival. It modulates dopaminergic and serotoninergic systems, enhancing attention and memory consolidation. The peptide also inhibits inflammatory cytokines and reduces oxidative stress in neural tissue.',
     useCases: ['cognitive', 'neuroprotection'],
+    resellers: [
+      { reseller: 'Peptide Sciences', product: 'Semax 5mg', price: '$54.99', url: 'https://www.peptidesciences.com/semax-5mg' },
+      { reseller: 'Swiss Chems', product: 'Semax Nasal 5mg', price: '$57.95', url: 'https://swisschems.is/product/semax' },
+      { reseller: 'Amino Asylum', product: 'Semax 10mg', price: '$74.99', url: 'https://aminoasylum.shop/product/semax' },
+    ],
     chineseContext: {
       sourcing: 'Produced by Chinese manufacturers following Russian pharmaceutical standards',
       popularity: 'Popular among students, professionals, and biohackers for cognitive enhancement',
@@ -250,6 +290,11 @@ export const PEPTIDES = [
     description: 'A synthetic tetrapeptide that acts as a telomerase activator, potentially slowing cellular aging. Originally developed in Russia for longevity and circadian rhythm regulation.',
     mechanism: 'Epitalon activates telomerase, the enzyme that adds telomeric repeats to chromosome ends, potentially extending cellular lifespan. It stimulates melatonin production in the pineal gland, regulating circadian rhythms. The peptide also modulates antioxidant enzyme activity and influences neuroendocrine system function.',
     useCases: ['anti-aging', 'sleep', 'longevity'],
+    resellers: [
+      { reseller: 'Peptide Sciences', product: 'Epitalon 10mg', price: '$59.99', url: 'https://www.peptidesciences.com/epitalon-10mg' },
+      { reseller: 'Swiss Chems', product: 'Epitalon 10mg', price: '$64.95', url: 'https://swisschems.is/product/epitalon' },
+      { reseller: 'PureRawz', product: 'Epitalon 20mg', price: '$89.99', url: 'https://www.purerawz.co/products/epitalon' },
+    ],
     chineseContext: {
       sourcing: 'Synthesized by Chinese peptide laboratories based on Russian research',
       popularity: 'Growing interest in longevity and anti-aging communities worldwide',
@@ -280,6 +325,11 @@ export const PEPTIDES = [
     description: 'A neuropeptide that influences sleep regulation, stress response, and pain perception. DSIP promotes deep, restorative sleep and may help with stress-related disorders.',
     mechanism: 'DSIP modulates sleep architecture by influencing GABAergic and glutamatergic neurotransmission. It reduces cortisol and ACTH levels during stress, acting on the hypothalamic-pituitary-adrenal axis. The peptide also affects endorphin levels and has been shown to normalize disrupted circadian rhythms.',
     useCases: ['sleep', 'stress'],
+    resellers: [
+      { reseller: 'Peptide Sciences', product: 'DSIP 5mg', price: '$47.99', url: 'https://www.peptidesciences.com/dsip-5mg' },
+      { reseller: 'Swiss Chems', product: 'DSIP 5mg', price: '$49.95', url: 'https://swisschems.is/product/dsip' },
+      { reseller: 'Biotech Peptides', product: 'DSIP 5mg', price: '$44.99', url: 'https://biotechpeptides.com/product/dsip' },
+    ],
     chineseContext: {
       sourcing: 'Available from Chinese peptide manufacturers with varying purity levels',
       popularity: 'Used by individuals with insomnia and high-stress occupations',
@@ -310,6 +360,11 @@ export const PEPTIDES = [
     description: 'A melanocortin receptor agonist FDA-approved for treating hypoactive sexual desire disorder in women. Works through the central nervous system rather than vascular system.',
     mechanism: 'PT-141 activates MC3R and MC4R receptors in the hypothalamus and limbic system, areas involved in sexual arousal and desire. Unlike PDE5 inhibitors, it works centrally rather than on vascular smooth muscle. This CNS-mediated mechanism increases sexual desire independent of blood flow effects.',
     useCases: ['libido', 'sexual-health'],
+    resellers: [
+      { reseller: 'Peptide Sciences', product: 'PT-141 10mg', price: '$44.99', url: 'https://www.peptidesciences.com/pt-141-10mg' },
+      { reseller: 'Swiss Chems', product: 'PT-141 10mg', price: '$47.95', url: 'https://swisschems.is/product/pt-141' },
+      { reseller: 'Amino Asylum', product: 'PT-141 10mg', price: '$39.99', url: 'https://aminoasylum.shop/product/pt-141' },
+    ],
     chineseContext: {
       sourcing: 'Manufactured by Chinese pharmaceutical companies following FDA approval',
       popularity: 'Increasing use for both approved indications and off-label purposes',
@@ -340,6 +395,11 @@ export const PEPTIDES = [
     description: 'A modified fragment of human growth hormone (HGH) designed to stimulate fat metabolism without affecting blood sugar or tissue growth. Developed specifically for obesity treatment.',
     mechanism: 'AOD-9604 is a modified fragment (amino acids 177-191) of human growth hormone. It stimulates lipolysis by activating beta-3 adrenergic receptors on adipocytes. Unlike full GH, it lacks the IGF-1 binding domain, so it promotes fat breakdown without causing hyperglycemia or promoting tissue growth.',
     useCases: ['weight-loss', 'fat-loss'],
+    resellers: [
+      { reseller: 'Peptide Sciences', product: 'AOD-9604 2mg', price: '$34.99', url: 'https://www.peptidesciences.com/aod-9604-2mg' },
+      { reseller: 'Swiss Chems', product: 'AOD-9604 2mg', price: '$37.95', url: 'https://swisschems.is/product/aod-9604' },
+      { reseller: 'PureRawz', product: 'AOD-9604 5mg', price: '$59.99', url: 'https://www.purerawz.co/products/aod-9604' },
+    ],
     chineseContext: {
       sourcing: 'Produced by Chinese peptide manufacturers for research purposes',
       popularity: 'Popular in weight loss and bodybuilding circles despite lack of approval',
@@ -362,40 +422,6 @@ export const PEPTIDES = [
     dosage: '300-600 mcg daily, subcutaneous injection (research purposes only)',
     sideEffects: 'Limited human safety data. Potential injection site reactions.',
     warnings: ['Not approved for human use', 'Failed FDA approval process', 'Research chemical only']
-  }
-];
-
-// Common peptide resellers
-export const RESELLERS = [
-  {
-    name: 'Peptide Sciences',
-    url: 'https://www.peptidesciences.com',
-    location: 'USA',
-    note: 'US-based, third-party tested, research use only'
-  },
-  {
-    name: 'Swiss Chems',
-    url: 'https://www.swisschems.is',
-    location: 'Europe',
-    note: 'European supplier with COA available'
-  },
-  {
-    name: 'Amino Asylum',
-    url: 'https://aminoasylum.shop',
-    location: 'USA',
-    note: 'Competitive pricing, HPLC tested'
-  },
-  {
-    name: 'PureRawz',
-    url: 'https://www.purerawz.co',
-    location: 'USA',
-    note: 'Wide selection, third-party testing'
-  },
-  {
-    name: 'Biotech Peptides',
-    url: 'https://biotechpeptides.com',
-    location: 'USA',
-    note: 'Research peptides with purity reports'
   }
 ];
 

@@ -209,8 +209,48 @@
   line-height: 1.5;
 }
 
-/* Resellers List */
-.resellers-list,
+/* Resellers Table */
+.resellers-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.85rem;
+}
+
+.resellers-table th,
+.resellers-table td {
+  padding: 0.6rem 0.8rem;
+  text-align: left;
+  border-bottom: 1px solid rgba(0, 255, 255, 0.15);
+}
+
+.resellers-table th {
+  color: var(--neon-purple);
+  font-family: 'Orbitron', sans-serif;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.resellers-table td {
+  color: rgba(0, 255, 255, 0.9);
+}
+
+.resellers-table tr:hover td {
+  background: rgba(0, 255, 255, 0.05);
+}
+
+.reseller-link {
+  color: var(--neon-cyan);
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.2s ease;
+}
+
+.reseller-link:hover {
+  color: var(--neon-magenta);
+}
+
+/* Testing Labs List */
 .testing-labs-list {
   list-style: none;
   padding: 0;
@@ -220,18 +260,15 @@
   gap: var(--spacing-md);
 }
 
-.reseller-item,
 .testing-lab-item {
   padding: var(--spacing-sm) 0;
   border-bottom: 1px solid rgba(0, 255, 255, 0.1);
 }
 
-.reseller-item:last-child,
 .testing-lab-item:last-child {
   border-bottom: none;
 }
 
-.reseller-link,
 .testing-lab-link {
   font-size: 0.95rem;
   font-weight: 600;
@@ -240,12 +277,10 @@
   transition: color 0.2s ease;
 }
 
-.reseller-link:hover,
 .testing-lab-link:hover {
   color: var(--neon-magenta);
 }
 
-.reseller-location,
 .testing-lab-location {
   display: block;
   font-size: 0.8rem;
@@ -253,7 +288,6 @@
   margin-top: var(--spacing-xs);
 }
 
-.reseller-note,
 .testing-lab-services {
   font-size: 0.85rem;
   color: rgba(0, 255, 255, 0.7);
