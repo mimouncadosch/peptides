@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server'
-import { sql, getPeptides, getResellers, insertPrice } from '@/lib/db'
-import { scrapeUrl, extractPriceData } from '@/lib/ai'
+import { getPeptides, getResellers, insertPrice } from '@/lib/db'
+import { searchForProduct, scrapeUrl, extractPriceData } from '@/lib/ai'
 
 // This endpoint is called by Vercel Cron daily
 // Vercel Cron will call this with a GET request
@@ -37,6 +37,8 @@ export async function GET(request: Request) {
     reseller: string
     status: 'success' | 'skipped' | 'error'
     message?: string
+    url?: string
+    price?: string
   }> = []
 
   try {
@@ -45,34 +47,24 @@ export async function GET(request: Request) {
       getResellers(),
     ])
 
-    // Get existing product URLs from latest prices
-    const latestPrices = await sql`
-      SELECT DISTINCT ON (peptide_id, reseller_id)
-        peptide_id, reseller_id, product_url
-      FROM prices
-      WHERE product_url IS NOT NULL
-      ORDER BY peptide_id, reseller_id, scraped_at DESC
-    `
-
-    // Create lookup map for product URLs
-    const urlMap = new Map<string, string>()
-    for (const price of latestPrices) {
-      const key = `${price.peptide_id}:${price.reseller_id}`
-      urlMap.set(key, price.product_url as string)
-    }
-
     // Check if AI services are configured
     const hasAnthropicKey = !!process.env.ANTHROPIC_API_KEY
     const hasFirecrawlKey = !!process.env.FIRECRAWL_API_KEY
 
     console.log(`[Cron] Starting price update. Anthropic: ${hasAnthropicKey}, Firecrawl: ${hasFirecrawlKey}`)
-    console.log(`[Cron] Found ${peptides.length} peptides, ${resellers.length} resellers, ${urlMap.size} URLs`)
+    console.log(`[Cron] Processing ${peptides.length} peptides × ${resellers.length} resellers`)
 
     if (!hasAnthropicKey) {
       return NextResponse.json({
         success: false,
         error: 'ANTHROPIC_API_KEY not configured',
-        message: 'Add your Anthropic API key to enable AI price extraction',
+      }, { status: 500 })
+    }
+
+    if (!hasFirecrawlKey) {
+      return NextResponse.json({
+        success: false,
+        error: 'FIRECRAWL_API_KEY not configured',
       }, { status: 500 })
     }
 
@@ -83,55 +75,56 @@ export async function GET(request: Request) {
     for (const peptide of peptides) {
       for (const reseller of resellers) {
         processed++
-        const key = `${peptide.id}:${reseller.id}`
-        const productUrl = urlMap.get(key)
-
-        if (!productUrl) {
-          results.push({
-            peptide: peptide.name,
-            reseller: reseller.name,
-            status: 'skipped',
-            message: 'No product URL',
-          })
-          continue
-        }
-
-        console.log(`[Cron] (${processed}/${total}) Scraping ${peptide.name} from ${reseller.name}...`)
+        console.log(`[Cron] (${processed}/${total}) ${peptide.name} @ ${reseller.name}`)
 
         try {
-          // Scrape the product page
-          const content = await scrapeUrl(productUrl)
+          // Step 1: Search for the product
+          const searchResult = await searchForProduct(peptide.name, reseller.base_url || '')
+
+          if (!searchResult) {
+            results.push({
+              peptide: peptide.name,
+              reseller: reseller.name,
+              status: 'skipped',
+              message: 'Product not found in search',
+            })
+            continue
+          }
+
+          // Step 2: Scrape the product page
+          console.log(`[Cron] Scraping ${searchResult.url}...`)
+          const content = await scrapeUrl(searchResult.url)
 
           if (!content) {
-            console.log(`[Cron] Failed to scrape ${productUrl}`)
             results.push({
               peptide: peptide.name,
               reseller: reseller.name,
               status: 'error',
               message: 'Failed to scrape URL',
+              url: searchResult.url,
             })
             continue
           }
 
           console.log(`[Cron] Scraped ${content.length} chars, extracting price...`)
 
-          // Extract price data using AI
+          // Step 3: Extract price data using AI
           const priceData = await extractPriceData(content, peptide.name, reseller.name)
 
           if (!priceData) {
-            console.log(`[Cron] Failed to extract price for ${peptide.name}`)
             results.push({
               peptide: peptide.name,
               reseller: reseller.name,
               status: 'error',
               message: 'Failed to extract price',
+              url: searchResult.url,
             })
             continue
           }
 
           console.log(`[Cron] Extracted: ${priceData.product_name} = $${(priceData.price_cents / 100).toFixed(2)}`)
 
-          // Insert new price record
+          // Step 4: Insert new price record
           await insertPrice({
             peptide_id: peptide.id,
             reseller_id: reseller.id,
@@ -140,18 +133,21 @@ export async function GET(request: Request) {
             original_price_cents: priceData.original_price_cents || null,
             promotion: priceData.promotion || null,
             shipping: priceData.shipping || null,
-            product_url: productUrl,
+            product_url: searchResult.url,
           })
 
           results.push({
             peptide: peptide.name,
             reseller: reseller.name,
             status: 'success',
+            url: searchResult.url,
+            price: `$${(priceData.price_cents / 100).toFixed(2)}`,
           })
 
-          // Rate limit: wait 1 second between requests
-          await new Promise(resolve => setTimeout(resolve, 1000))
+          // Rate limit: wait between requests to avoid hitting API limits
+          await new Promise(resolve => setTimeout(resolve, 500))
         } catch (error) {
+          console.error(`[Cron] Error processing ${peptide.name}@${reseller.name}:`, error)
           results.push({
             peptide: peptide.name,
             reseller: reseller.name,
@@ -166,6 +162,8 @@ export async function GET(request: Request) {
     const errorCount = results.filter(r => r.status === 'error').length
     const skippedCount = results.filter(r => r.status === 'skipped').length
 
+    console.log(`[Cron] Done. Success: ${successCount}, Errors: ${errorCount}, Skipped: ${skippedCount}`)
+
     return NextResponse.json({
       success: true,
       summary: {
@@ -178,7 +176,7 @@ export async function GET(request: Request) {
       timestamp: new Date().toISOString(),
     })
   } catch (error) {
-    console.error('Cron job failed:', error)
+    console.error('[Cron] Job failed:', error)
     return NextResponse.json(
       {
         success: false,

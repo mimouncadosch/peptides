@@ -12,6 +12,68 @@ export interface ExtractedPrice {
   shipping?: string
 }
 
+export interface SearchResult {
+  title: string
+  url: string
+  description: string
+}
+
+// Search for a peptide product on a reseller's site using Firecrawl
+export async function searchForProduct(
+  peptideName: string,
+  resellerDomain: string
+): Promise<SearchResult | null> {
+  const firecrawlKey = process.env.FIRECRAWL_API_KEY
+
+  if (!firecrawlKey) {
+    console.error('[Search] FIRECRAWL_API_KEY not configured')
+    return null
+  }
+
+  try {
+    const query = `buy ${peptideName} product site:${resellerDomain}`
+    console.log(`[Search] Searching: "${query}"`)
+
+    const response = await fetch('https://api.firecrawl.dev/v1/search', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${firecrawlKey}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        query,
+        limit: 5,
+      }),
+    })
+
+    if (!response.ok) {
+      const errorText = await response.text()
+      console.error('[Search] Firecrawl error:', errorText)
+      return null
+    }
+
+    const data = await response.json()
+    const results = data.data || []
+
+    if (results.length === 0) {
+      console.log(`[Search] No results found for "${query}"`)
+      return null
+    }
+
+    // Return the first result
+    const first = results[0]
+    console.log(`[Search] Found: ${first.url}`)
+    return {
+      title: first.title || '',
+      url: first.url,
+      description: first.description || '',
+    }
+  } catch (error) {
+    console.error('[Search] Search failed:', error)
+    return null
+  }
+}
+
 // Extract price data from scraped HTML/text content using Claude
 export async function extractPriceData(
   content: string,
@@ -63,48 +125,37 @@ Respond with ONLY the JSON object or null, no other text.`,
   }
 }
 
-// Scrape a URL using Firecrawl (or fallback to basic fetch)
+// Scrape a URL using Firecrawl
 export async function scrapeUrl(url: string): Promise<string | null> {
   const firecrawlKey = process.env.FIRECRAWL_API_KEY
 
-  if (firecrawlKey) {
-    // Use Firecrawl API
-    try {
-      const response = await fetch('https://api.firecrawl.dev/v1/scrape', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${firecrawlKey}`,
-        },
-        body: JSON.stringify({
-          url,
-          formats: ['markdown'],
-        }),
-      })
+  if (!firecrawlKey) {
+    console.error('[Scrape] FIRECRAWL_API_KEY not configured')
+    return null
+  }
 
-      if (!response.ok) {
-        console.error('Firecrawl error:', await response.text())
-        return null
-      }
+  try {
+    const response = await fetch('https://api.firecrawl.dev/v1/scrape', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${firecrawlKey}`,
+      },
+      body: JSON.stringify({
+        url,
+        formats: ['markdown'],
+      }),
+    })
 
-      const data = await response.json()
-      return data.data?.markdown || null
-    } catch (error) {
-      console.error('Firecrawl scrape failed:', error)
+    if (!response.ok) {
+      console.error('[Scrape] Firecrawl error:', await response.text())
       return null
     }
-  } else {
-    // Fallback: basic fetch (may not work for JS-heavy sites)
-    try {
-      const response = await fetch(url, {
-        headers: {
-          'User-Agent': 'Mozilla/5.0 (compatible; PeptidePriceBot/1.0)',
-        },
-      })
-      return await response.text()
-    } catch (error) {
-      console.error('Basic fetch failed:', error)
-      return null
-    }
+
+    const data = await response.json()
+    return data.data?.markdown || null
+  } catch (error) {
+    console.error('[Scrape] Failed:', error)
+    return null
   }
 }
