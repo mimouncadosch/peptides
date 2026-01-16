@@ -63,13 +63,15 @@ export default async function AggregatorPage() {
           <p className="text-sm mt-1">The database is empty. Run the setup script to seed initial data.</p>
         </div>
       ) : (
-        <div className="overflow-x-auto">
-          <table className="w-full border-collapse bg-white shadow-sm rounded-lg overflow-hidden">
-            <thead>
+        <div className="overflow-auto max-h-[calc(100vh-200px)] border border-gray-200 rounded-lg shadow-sm">
+          <table className="w-full border-collapse bg-white">
+            <thead className="sticky top-0 z-20">
               <tr className="bg-gray-100">
-                <th className="text-left p-4 font-semibold text-gray-700 border-b">Peptide</th>
+                <th className="sticky left-0 z-30 bg-gray-100 text-left p-4 font-semibold text-gray-700 border-b min-w-[180px]">
+                  Peptide
+                </th>
                 {resellers.map((reseller) => (
-                  <th key={reseller.id} className="text-left p-4 font-semibold text-gray-700 border-b">
+                  <th key={reseller.id} className="bg-gray-100 text-left p-4 font-semibold text-gray-700 border-b min-w-[150px]">
                     {reseller.base_url ? (
                       <a href={reseller.base_url} target="_blank" rel="noopener noreferrer" className="hover:text-blue-600">
                         {reseller.name}
@@ -84,7 +86,7 @@ export default async function AggregatorPage() {
             <tbody>
               {peptides.map((peptide, idx) => (
                 <tr key={peptide.id} className={idx % 2 === 0 ? 'bg-white' : 'bg-gray-50'}>
-                  <td className="p-4 border-b">
+                  <td className={`sticky left-0 z-10 p-4 border-b min-w-[180px] ${idx % 2 === 0 ? 'bg-white' : 'bg-gray-50'}`}>
                     <div className="font-medium text-gray-900">{peptide.name}</div>
                     {peptide.full_name && (
                       <div className="text-xs text-gray-500">{peptide.full_name}</div>
