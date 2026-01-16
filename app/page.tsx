@@ -1,24 +1,10 @@
 import { getPeptides, getResellers, getLatestPrices } from '@/lib/db'
-import Image from 'next/image'
+import PriceTable from './components/PriceTable'
 
 // Revalidate data every 5 minutes
 export const revalidate = 300
 
-// Reseller logo mapping
-const resellerLogos: Record<string, string> = {
-  'peptide-sciences': '/logos/peptide-sciences.jpeg',
-  'swiss-chems': '/logos/swiss-chems.svg',
-  'biotech-peptides': '/logos/biotech-peptides.png',
-  'purerawz': '/logos/pure-raws.jpeg',
-  // 'amino-asylum': '/logos/amino-asylum.png',  // TODO: add logo
-}
-
-function formatPrice(cents: number | null): string {
-  if (cents === null) return '-'
-  return `$${(cents / 100).toFixed(2)}`
-}
-
-// Sale icon (percent badge)
+// Icons for legend
 function SaleIcon() {
   return (
     <svg className="inline-block w-4 h-4 mr-1 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
@@ -27,7 +13,6 @@ function SaleIcon() {
   )
 }
 
-// Bulk pricing icon (stack/layers)
 function BulkIcon() {
   return (
     <svg className="inline-block w-4 h-4 mr-1 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
@@ -36,7 +21,6 @@ function BulkIcon() {
   )
 }
 
-// Shipping icon (truck)
 function ShippingIcon() {
   return (
     <svg className="inline-block w-4 h-4 mr-1 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
@@ -46,7 +30,6 @@ function ShippingIcon() {
   )
 }
 
-// Return policy icon (refresh/arrow)
 function ReturnIcon() {
   return (
     <svg className="inline-block w-4 h-4 mr-1 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
@@ -71,14 +54,6 @@ export default async function AggregatorPage() {
     error = e instanceof Error ? e.message : 'Failed to load data'
   }
 
-  // Create a price lookup map: peptideId -> resellerId -> priceData
-  const priceMap = new Map<string, Map<string, typeof prices[0]>>()
-  for (const price of prices) {
-    if (!priceMap.has(price.peptide_id)) {
-      priceMap.set(price.peptide_id, new Map())
-    }
-    priceMap.get(price.peptide_id)!.set(price.reseller_id, price)
-  }
 
   return (
     <div className="min-h-screen p-4 md:p-8 flex flex-col">
@@ -110,178 +85,7 @@ export default async function AggregatorPage() {
             <p className="text-sm mt-1">The database is empty. Run the setup script to seed initial data.</p>
           </div>
         ) : (
-          <>
-            {/* Mobile Card View */}
-            <div className="md:hidden space-y-4">
-              {peptides.map((peptide) => (
-                <div key={peptide.id} className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
-                  <div className="bg-gray-100 p-3 border-b">
-                    <div className="font-semibold text-gray-900">{peptide.name}</div>
-                    {peptide.full_name && (
-                      <div className="text-xs text-gray-500 mt-0.5">{peptide.full_name}</div>
-                    )}
-                  </div>
-                  <div className="divide-y divide-gray-100">
-                    {resellers.map((reseller) => {
-                      const priceData = priceMap.get(peptide.id)?.get(reseller.id)
-                      return (
-                        <div key={reseller.id} className="p-3 flex justify-between items-start">
-                          <div className="flex items-center gap-2">
-                            {resellerLogos[reseller.id] && (
-                              <Image
-                                src={resellerLogos[reseller.id]}
-                                alt={`${reseller.name} logo`}
-                                width={40}
-                                height={20}
-                                className="object-contain h-5"
-                              />
-                            )}
-                            <span className="text-sm text-gray-600">{reseller.name}</span>
-                          </div>
-                          <div className="text-right flex-1 ml-4">
-                            {priceData ? (
-                              <div className="space-y-1">
-                                <div className="font-semibold text-gray-900 text-lg">
-                                  {priceData.product_url ? (
-                                    <a href={priceData.product_url} target="_blank" rel="noopener noreferrer" className="hover:text-blue-600">
-                                      {formatPrice(priceData.price_cents)}
-                                    </a>
-                                  ) : formatPrice(priceData.price_cents)}
-                                </div>
-                                {priceData.sale_info && (
-                                  <div className="text-xs text-red-600 flex items-center justify-end">
-                                    <SaleIcon />{priceData.sale_info}
-                                  </div>
-                                )}
-                                {priceData.bulk_pricing && (
-                                  <div className="text-xs text-purple-600 flex items-center justify-end">
-                                    <BulkIcon />{priceData.bulk_pricing}
-                                  </div>
-                                )}
-                                {priceData.shipping && (
-                                  <div className="text-xs text-blue-500 flex items-center justify-end">
-                                    <ShippingIcon />{priceData.shipping}
-                                  </div>
-                                )}
-                                {priceData.return_policy && (
-                                  <div className="text-xs text-gray-500 flex items-center justify-end">
-                                    <ReturnIcon />{priceData.return_policy}
-                                  </div>
-                                )}
-                              </div>
-                            ) : (
-                              <span className="text-gray-300">-</span>
-                            )}
-                          </div>
-                        </div>
-                      )
-                    })}
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            {/* Desktop Table View */}
-            <div className="hidden md:block overflow-auto max-h-[calc(100vh-250px)] border border-gray-200 rounded-lg shadow-sm">
-              <table className="w-full border-collapse bg-white table-fixed">
-                <thead className="sticky top-0 z-20">
-                  <tr className="bg-gray-100">
-                    <th className="sticky left-0 z-30 bg-gray-100 text-left p-4 font-semibold text-gray-700 border-b w-[200px]">
-                      Peptide
-                    </th>
-                    {resellers.map((reseller) => (
-                      <th key={reseller.id} className="bg-gray-100 text-center p-4 font-semibold text-gray-700 border-b w-[180px]">
-                        <div className="flex flex-col items-center gap-2">
-                          {resellerLogos[reseller.id] && (
-                            <Image
-                              src={resellerLogos[reseller.id]}
-                              alt={`${reseller.name} logo`}
-                              width={80}
-                              height={32}
-                              className="object-contain h-8"
-                            />
-                          )}
-                          {reseller.base_url ? (
-                            <a href={reseller.base_url} target="_blank" rel="noopener noreferrer" className="hover:text-blue-600 text-sm">
-                              {reseller.name}
-                            </a>
-                          ) : (
-                            <span className="text-sm">{reseller.name}</span>
-                          )}
-                        </div>
-                      </th>
-                    ))}
-                  </tr>
-                </thead>
-                <tbody>
-                  {peptides.map((peptide) => (
-                    <tr key={peptide.id} className="group bg-white">
-                      <td className="sticky left-0 z-10 p-4 border-b w-[200px] bg-white group-hover:bg-gray-50">
-                        <div className="font-medium text-gray-900">{peptide.name}</div>
-                        {peptide.full_name && (
-                          <div className="text-xs text-gray-500 mt-1">{peptide.full_name}</div>
-                        )}
-                      </td>
-                      {resellers.map((reseller) => {
-                        const priceData = priceMap.get(peptide.id)?.get(reseller.id)
-                        return (
-                          <td key={reseller.id} className="p-4 border-b w-[180px] align-top group-hover:bg-gray-50">
-                            {priceData ? (
-                              <div className="space-y-1">
-                                <div className="font-semibold text-gray-900 text-lg">
-                                  {priceData.product_url ? (
-                                    <a
-                                      href={priceData.product_url}
-                                      target="_blank"
-                                      rel="noopener noreferrer"
-                                      className="hover:text-blue-600"
-                                    >
-                                      {formatPrice(priceData.price_cents)}
-                                    </a>
-                                  ) : (
-                                    formatPrice(priceData.price_cents)
-                                  )}
-                                </div>
-                                {priceData.product_name && (
-                                  <div className="text-xs text-gray-500">{priceData.product_name}</div>
-                                )}
-                                {priceData.sale_info && (
-                                  <div className="text-xs text-red-600 font-medium flex items-center">
-                                    <SaleIcon />
-                                    {priceData.sale_info}
-                                  </div>
-                                )}
-                                {priceData.bulk_pricing && (
-                                  <div className="text-xs text-purple-600 font-medium flex items-center">
-                                    <BulkIcon />
-                                    {priceData.bulk_pricing}
-                                  </div>
-                                )}
-                                {priceData.shipping && (
-                                  <div className="text-xs text-blue-500 flex items-center">
-                                    <ShippingIcon />
-                                    {priceData.shipping}
-                                  </div>
-                                )}
-                                {priceData.return_policy && (
-                                  <div className="text-xs text-gray-500 flex items-center">
-                                    <ReturnIcon />
-                                    {priceData.return_policy}
-                                  </div>
-                                )}
-                              </div>
-                            ) : (
-                              <span className="text-gray-300">-</span>
-                            )}
-                          </td>
-                        )
-                      })}
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </>
+          <PriceTable peptides={peptides} resellers={resellers} prices={prices} />
         )}
       </main>
 

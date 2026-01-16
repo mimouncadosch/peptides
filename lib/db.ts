@@ -32,7 +32,7 @@ export interface Price {
 }
 
 // Get latest price for each peptide/reseller combination
-export async function getLatestPrices() {
+export async function getLatestPrices(): Promise<Price[]> {
   const rows = await sql`
     SELECT DISTINCT ON (peptide_id, reseller_id)
       p.*,
@@ -45,7 +45,7 @@ export async function getLatestPrices() {
     JOIN resellers r ON p.reseller_id = r.id
     ORDER BY peptide_id, reseller_id, scraped_at DESC
   `
-  return rows
+  return rows as Price[]
 }
 
 // Get all peptides
