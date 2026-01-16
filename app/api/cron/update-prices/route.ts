@@ -6,7 +6,7 @@ import { searchForProduct, scrapeUrl, extractPriceData } from '@/lib/ai'
 // This endpoint is called by Vercel Cron twice daily (6am and 6pm UTC)
 // Processes a batch of 15 peptide/reseller combos per run to avoid timeout
 
-const BATCH_SIZE = 15
+const BATCH_SIZE = 300
 
 export const maxDuration = 300 // 5 minutes max for Pro plan
 export const dynamic = 'force-dynamic'

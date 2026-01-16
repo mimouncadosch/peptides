@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import { getPeptides, getResellers, getLatestPrices } from '@/lib/db'
 import PriceTable from './components/PriceTable'
 
@@ -60,7 +61,14 @@ export default async function AggregatorPage() {
       <header className="mb-6 md:mb-8">
         <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-4">
           <div>
-            <h1 className="text-2xl md:text-3xl font-bold text-gray-900">PeptideWatch</h1>
+            <Image
+              src="/logos/peptide-watch.jpg"
+              alt="PeptideWatch"
+              width={300}
+              height={168}
+              className="h-20 md:h-24 w-auto"
+              priority
+            />
             <p className="text-gray-600 mt-1 text-sm md:text-base">We find prices across peptide resellers</p>
           </div>
           <div className="flex flex-wrap items-center gap-3 md:gap-4 text-xs text-gray-500">
