@@ -1,10 +1,12 @@
 import { NextResponse } from 'next/server'
 import { revalidatePath } from 'next/cache'
-import { getPeptides, getResellers, insertPrice } from '@/lib/db'
+import { getOldestScrapedCombos, insertPrice } from '@/lib/db'
 import { searchForProduct, scrapeUrl, extractPriceData } from '@/lib/ai'
 
-// This endpoint is called by Vercel Cron daily
-// Vercel Cron will call this with a GET request
+// This endpoint is called by Vercel Cron twice daily (6am and 6pm UTC)
+// Processes a batch of 15 peptide/reseller combos per run to avoid timeout
+
+const BATCH_SIZE = 15
 
 export const maxDuration = 300 // 5 minutes max for Pro plan
 export const dynamic = 'force-dynamic'
@@ -43,17 +45,11 @@ export async function GET(request: Request) {
   }> = []
 
   try {
-    const [peptides, resellers] = await Promise.all([
-      getPeptides(),
-      getResellers(),
-    ])
-
     // Check if AI services are configured
     const hasAnthropicKey = !!process.env.ANTHROPIC_API_KEY
     const hasFirecrawlKey = !!process.env.FIRECRAWL_API_KEY
 
     console.log(`[Cron] Starting price update. Anthropic: ${hasAnthropicKey}, Firecrawl: ${hasFirecrawlKey}`)
-    console.log(`[Cron] Processing ${peptides.length} peptides × ${resellers.length} resellers`)
 
     if (!hasAnthropicKey) {
       return NextResponse.json({
@@ -69,95 +65,94 @@ export async function GET(request: Request) {
       }, { status: 500 })
     }
 
-    // Process each peptide/reseller combination
-    let processed = 0
-    const total = peptides.length * resellers.length
+    // Get the oldest scraped combos (batch processing)
+    const combos = await getOldestScrapedCombos(BATCH_SIZE)
+    console.log(`[Cron] Processing batch of ${combos.length} combos (oldest first)`)
 
-    for (const peptide of peptides) {
-      for (const reseller of resellers) {
-        processed++
-        console.log(`[Cron] (${processed}/${total}) ${peptide.name} @ ${reseller.name}`)
+    // Process each combo in the batch
+    for (let i = 0; i < combos.length; i++) {
+      const combo = combos[i]
+      console.log(`[Cron] (${i + 1}/${combos.length}) ${combo.peptide_name} @ ${combo.reseller_name}`)
 
-        try {
-          // Step 1: Search for the product
-          const searchResult = await searchForProduct(peptide.name, reseller.base_url || '')
+      try {
+        // Step 1: Search for the product
+        const searchResult = await searchForProduct(combo.peptide_name, combo.reseller_base_url || '')
 
-          if (!searchResult) {
-            results.push({
-              peptide: peptide.name,
-              reseller: reseller.name,
-              status: 'skipped',
-              message: 'Product not found in search',
-            })
-            continue
-          }
-
-          // Step 2: Scrape the product page
-          console.log(`[Cron] Scraping ${searchResult.url}...`)
-          const content = await scrapeUrl(searchResult.url)
-
-          if (!content) {
-            results.push({
-              peptide: peptide.name,
-              reseller: reseller.name,
-              status: 'error',
-              message: 'Failed to scrape URL',
-              url: searchResult.url,
-            })
-            continue
-          }
-
-          console.log(`[Cron] Scraped ${content.length} chars, extracting price...`)
-
-          // Step 3: Extract price data using AI
-          const priceData = await extractPriceData(content, peptide.name, reseller.name)
-
-          if (!priceData) {
-            results.push({
-              peptide: peptide.name,
-              reseller: reseller.name,
-              status: 'error',
-              message: 'Failed to extract price',
-              url: searchResult.url,
-            })
-            continue
-          }
-
-          console.log(`[Cron] Extracted: ${priceData.product_name} = $${(priceData.price_cents / 100).toFixed(2)}`)
-
-          // Step 4: Insert new price record
-          await insertPrice({
-            peptide_id: peptide.id,
-            reseller_id: reseller.id,
-            product_name: priceData.product_name,
-            price_cents: priceData.price_cents,
-            original_price_cents: priceData.original_price_cents || null,
-            sale_info: priceData.sale_info || null,
-            bulk_pricing: priceData.bulk_pricing || null,
-            shipping: priceData.shipping || null,
-            return_policy: priceData.return_policy || null,
-            product_url: searchResult.url,
-          })
-
+        if (!searchResult) {
           results.push({
-            peptide: peptide.name,
-            reseller: reseller.name,
-            status: 'success',
-            url: searchResult.url,
-            price: `$${(priceData.price_cents / 100).toFixed(2)}`,
+            peptide: combo.peptide_name,
+            reseller: combo.reseller_name,
+            status: 'skipped',
+            message: 'Product not found in search',
           })
-
-          // Rate limit: wait between requests to avoid hitting API limits
-          await new Promise(resolve => setTimeout(resolve, 500))
-        } catch (error) {
-          console.error(`[Cron] Error processing ${peptide.name}@${reseller.name}:`, error)
-          results.push({
-            peptide: peptide.name,
-            reseller: reseller.name,
-            status: 'error',
-            message: error instanceof Error ? error.message : 'Unknown error',
-          })
+          continue
         }
+
+        // Step 2: Scrape the product page
+        console.log(`[Cron] Scraping ${searchResult.url}...`)
+        const content = await scrapeUrl(searchResult.url)
+
+        if (!content) {
+          results.push({
+            peptide: combo.peptide_name,
+            reseller: combo.reseller_name,
+            status: 'error',
+            message: 'Failed to scrape URL',
+            url: searchResult.url,
+          })
+          continue
+        }
+
+        console.log(`[Cron] Scraped ${content.length} chars, extracting price...`)
+
+        // Step 3: Extract price data using AI
+        const priceData = await extractPriceData(content, combo.peptide_name, combo.reseller_name)
+
+        if (!priceData) {
+          results.push({
+            peptide: combo.peptide_name,
+            reseller: combo.reseller_name,
+            status: 'error',
+            message: 'Failed to extract price',
+            url: searchResult.url,
+          })
+          continue
+        }
+
+        console.log(`[Cron] Extracted: ${priceData.product_name} = $${(priceData.price_cents / 100).toFixed(2)}`)
+
+        // Step 4: Insert new price record
+        await insertPrice({
+          peptide_id: combo.peptide_id,
+          reseller_id: combo.reseller_id,
+          product_name: priceData.product_name,
+          price_cents: priceData.price_cents,
+          original_price_cents: priceData.original_price_cents || null,
+          sale_info: priceData.sale_info || null,
+          bulk_pricing: priceData.bulk_pricing || null,
+          shipping: priceData.shipping || null,
+          return_policy: priceData.return_policy || null,
+          product_url: searchResult.url,
+        })
+
+        results.push({
+          peptide: combo.peptide_name,
+          reseller: combo.reseller_name,
+          status: 'success',
+          url: searchResult.url,
+          price: `$${(priceData.price_cents / 100).toFixed(2)}`,
+        })
+
+        // Rate limit: wait between requests to avoid hitting API limits
+        await new Promise(resolve => setTimeout(resolve, 500))
+      } catch (error) {
+        console.error(`[Cron] Error processing ${combo.peptide_name}@${combo.reseller_name}:`, error)
+        results.push({
+          peptide: combo.peptide_name,
+          reseller: combo.reseller_name,
+          status: 'error',
+          message: error instanceof Error ? error.message : 'Unknown error',
+        })
       }
     }
 

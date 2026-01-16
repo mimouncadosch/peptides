@@ -78,3 +78,54 @@ export async function getPriceHistory(peptideId: string, resellerId: string) {
   `
   return rows
 }
+
+// Get peptide/reseller combinations ordered by oldest scraped (for batch processing)
+// Returns combos that have never been scraped first, then oldest scraped
+export async function getOldestScrapedCombos(limit: number): Promise<Array<{
+  peptide_id: string
+  peptide_name: string
+  reseller_id: string
+  reseller_name: string
+  reseller_base_url: string | null
+  last_scraped: Date | null
+}>> {
+  const rows = await sql`
+    WITH all_combos AS (
+      SELECT
+        p.id as peptide_id,
+        p.name as peptide_name,
+        r.id as reseller_id,
+        r.name as reseller_name,
+        r.base_url as reseller_base_url
+      FROM peptides p
+      CROSS JOIN resellers r
+    ),
+    latest_prices AS (
+      SELECT DISTINCT ON (peptide_id, reseller_id)
+        peptide_id,
+        reseller_id,
+        scraped_at as last_scraped
+      FROM prices
+      ORDER BY peptide_id, reseller_id, scraped_at DESC
+    )
+    SELECT
+      ac.peptide_id,
+      ac.peptide_name,
+      ac.reseller_id,
+      ac.reseller_name,
+      ac.reseller_base_url,
+      lp.last_scraped
+    FROM all_combos ac
+    LEFT JOIN latest_prices lp ON ac.peptide_id = lp.peptide_id AND ac.reseller_id = lp.reseller_id
+    ORDER BY lp.last_scraped NULLS FIRST, ac.peptide_name, ac.reseller_name
+    LIMIT ${limit}
+  `
+  return rows as Array<{
+    peptide_id: string
+    peptide_name: string
+    reseller_id: string
+    reseller_name: string
+    reseller_base_url: string | null
+    last_scraped: Date | null
+  }>
+}
