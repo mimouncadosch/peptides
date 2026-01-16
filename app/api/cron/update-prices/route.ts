@@ -65,6 +65,9 @@ export async function GET(request: Request) {
     const hasAnthropicKey = !!process.env.ANTHROPIC_API_KEY
     const hasFirecrawlKey = !!process.env.FIRECRAWL_API_KEY
 
+    console.log(`[Cron] Starting price update. Anthropic: ${hasAnthropicKey}, Firecrawl: ${hasFirecrawlKey}`)
+    console.log(`[Cron] Found ${peptides.length} peptides, ${resellers.length} resellers, ${urlMap.size} URLs`)
+
     if (!hasAnthropicKey) {
       return NextResponse.json({
         success: false,
@@ -74,8 +77,12 @@ export async function GET(request: Request) {
     }
 
     // Process each peptide/reseller combination
+    let processed = 0
+    const total = peptides.length * resellers.length
+
     for (const peptide of peptides) {
       for (const reseller of resellers) {
+        processed++
         const key = `${peptide.id}:${reseller.id}`
         const productUrl = urlMap.get(key)
 
@@ -89,11 +96,14 @@ export async function GET(request: Request) {
           continue
         }
 
+        console.log(`[Cron] (${processed}/${total}) Scraping ${peptide.name} from ${reseller.name}...`)
+
         try {
           // Scrape the product page
           const content = await scrapeUrl(productUrl)
 
           if (!content) {
+            console.log(`[Cron] Failed to scrape ${productUrl}`)
             results.push({
               peptide: peptide.name,
               reseller: reseller.name,
@@ -103,10 +113,13 @@ export async function GET(request: Request) {
             continue
           }
 
+          console.log(`[Cron] Scraped ${content.length} chars, extracting price...`)
+
           // Extract price data using AI
           const priceData = await extractPriceData(content, peptide.name, reseller.name)
 
           if (!priceData) {
+            console.log(`[Cron] Failed to extract price for ${peptide.name}`)
             results.push({
               peptide: peptide.name,
               reseller: reseller.name,
@@ -115,6 +128,8 @@ export async function GET(request: Request) {
             })
             continue
           }
+
+          console.log(`[Cron] Extracted: ${priceData.product_name} = $${(priceData.price_cents / 100).toFixed(2)}`)
 
           // Insert new price record
           await insertPrice({
