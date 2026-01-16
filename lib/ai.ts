@@ -8,8 +8,10 @@ export interface ExtractedPrice {
   product_name: string
   price_cents: number
   original_price_cents?: number
-  promotion?: string
+  sale_info?: string
+  bulk_pricing?: string
   shipping?: string
+  return_policy?: string
 }
 
 export interface SearchResult {
@@ -92,9 +94,11 @@ export async function extractPriceData(
 Return a JSON object with:
 - product_name: The full product name/description (e.g., "BPC-157 5mg")
 - price_cents: The current price in cents (e.g., 3999 for $39.99)
-- original_price_cents: The original price in cents if there's a discount (optional)
-- promotion: Any active promotion or discount code (optional)
-- shipping: Shipping information if available (optional)
+- original_price_cents: The original price in cents if there's a sale/discount (optional)
+- sale_info: Any active sale or discount (e.g., "20% off", "Save $10", "Holiday Sale") (optional)
+- bulk_pricing: Volume/quantity discounts (e.g., "Buy 3 save 5%", "10+ units: $35 each") (optional)
+- shipping: Shipping information (e.g., "FREE USPS", "$5 flat rate", "Free over $100") (optional)
+- return_policy: Return/refund policy (e.g., "30-day returns", "No returns on peptides") (optional)
 
 If you cannot find price information for this peptide, return null.
 

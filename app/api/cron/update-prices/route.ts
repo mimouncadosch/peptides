@@ -132,8 +132,10 @@ export async function GET(request: Request) {
             product_name: priceData.product_name,
             price_cents: priceData.price_cents,
             original_price_cents: priceData.original_price_cents || null,
-            promotion: priceData.promotion || null,
+            sale_info: priceData.sale_info || null,
+            bulk_pricing: priceData.bulk_pricing || null,
             shipping: priceData.shipping || null,
+            return_policy: priceData.return_policy || null,
             product_url: searchResult.url,
           })
 

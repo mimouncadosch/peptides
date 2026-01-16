@@ -23,8 +23,10 @@ export interface Price {
   product_name: string | null
   price_cents: number | null
   original_price_cents: number | null
-  promotion: string | null
+  sale_info: string | null
+  bulk_pricing: string | null
   shipping: string | null
+  return_policy: string | null
   product_url: string | null
   scraped_at: Date
 }
@@ -61,8 +63,8 @@ export async function getResellers(): Promise<Reseller[]> {
 // Insert a new price record
 export async function insertPrice(price: Omit<Price, 'id' | 'scraped_at'>) {
   await sql`
-    INSERT INTO prices (peptide_id, reseller_id, product_name, price_cents, original_price_cents, promotion, shipping, product_url)
-    VALUES (${price.peptide_id}, ${price.reseller_id}, ${price.product_name}, ${price.price_cents}, ${price.original_price_cents}, ${price.promotion}, ${price.shipping}, ${price.product_url})
+    INSERT INTO prices (peptide_id, reseller_id, product_name, price_cents, original_price_cents, sale_info, bulk_pricing, shipping, return_policy, product_url)
+    VALUES (${price.peptide_id}, ${price.reseller_id}, ${price.product_name}, ${price.price_cents}, ${price.original_price_cents}, ${price.sale_info}, ${price.bulk_pricing}, ${price.shipping}, ${price.return_policy}, ${price.product_url})
   `
 }
 
