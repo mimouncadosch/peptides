@@ -176,7 +176,7 @@ export default function PriceTable({ peptides, resellers, prices }: PriceTablePr
     <div className={`flex gap-4 transition-all duration-300 ease-in-out ${hasSelection ? 'md:pr-80' : ''}`}>
       {/* Main content */}
       <div className="flex-1 min-w-0">
-        <p className="text-sm text-gray-500 italic mb-4">Click on peptides to build your best basket</p>
+        <p className="text-sm text-gray-500 italic mb-4">Select the peptides you need and we'll show you the cheapest way to buy them</p>
         {/* Mobile Card View */}
         <div className="md:hidden space-y-4">
           {peptides.map((peptide) => {
