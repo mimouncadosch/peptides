@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server'
+import { revalidatePath } from 'next/cache'
 import { getPeptides, getResellers, insertPrice } from '@/lib/db'
 import { searchForProduct, scrapeUrl, extractPriceData } from '@/lib/ai'
 
@@ -163,6 +164,10 @@ export async function GET(request: Request) {
     const skippedCount = results.filter(r => r.status === 'skipped').length
 
     console.log(`[Cron] Done. Success: ${successCount}, Errors: ${errorCount}, Skipped: ${skippedCount}`)
+
+    // Revalidate the homepage to show fresh prices
+    revalidatePath('/')
+    console.log('[Cron] Revalidated homepage cache')
 
     return NextResponse.json({
       success: true,
