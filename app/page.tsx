@@ -1,8 +1,8 @@
 import { getPeptides, getResellers, getLatestPrices } from '@/lib/db'
 import Link from 'next/link'
 
-// Revalidate data every hour
-export const revalidate = 3600
+// Revalidate data every 5 minutes
+export const revalidate = 300
 
 function formatPrice(cents: number | null): string {
   if (cents === null) return '-'
