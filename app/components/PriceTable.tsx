@@ -98,6 +98,14 @@ function CheckIcon() {
   )
 }
 
+function ExternalLinkIcon() {
+  return (
+    <svg className="inline-block w-3 h-3 ml-1 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+    </svg>
+  )
+}
+
 interface PriceTableProps {
   peptides: Peptide[]
   resellers: Reseller[]
@@ -223,7 +231,20 @@ export default function PriceTable({ peptides, resellers, prices }: PriceTablePr
                           {priceData ? (
                             <div className="space-y-1">
                               <div className="font-semibold text-gray-900 text-lg">
-                                {formatPrice(priceData.price_cents)}
+                                {priceData.product_url ? (
+                                  <a
+                                    href={priceData.product_url}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="hover:text-blue-600 inline-flex items-center"
+                                    onClick={(e) => e.stopPropagation()}
+                                  >
+                                    {formatPrice(priceData.price_cents)}
+                                    <ExternalLinkIcon />
+                                  </a>
+                                ) : (
+                                  formatPrice(priceData.price_cents)
+                                )}
                               </div>
                               {priceData.sale_info && (
                                 <div className="text-xs text-red-600 flex items-center justify-end">
@@ -333,10 +354,11 @@ export default function PriceTable({ peptides, resellers, prices }: PriceTablePr
                                     href={priceData.product_url}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="hover:text-blue-600"
+                                    className="hover:text-blue-600 inline-flex items-center"
                                     onClick={(e) => e.stopPropagation()}
                                   >
                                     {formatPrice(priceData.price_cents)}
+                                    <ExternalLinkIcon />
                                   </a>
                                 ) : (
                                   formatPrice(priceData.price_cents)
