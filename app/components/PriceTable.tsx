@@ -173,7 +173,7 @@ export default function PriceTable({ peptides, resellers, prices }: PriceTablePr
   const hasSelection = selectedPeptides.size > 0
 
   return (
-    <div className={`flex gap-4 ${hasSelection ? 'md:pr-80' : ''}`}>
+    <div className={`flex gap-4 transition-all duration-300 ease-in-out ${hasSelection ? 'md:pr-80' : ''}`}>
       {/* Main content */}
       <div className="flex-1 min-w-0">
         {/* Mobile Card View */}
@@ -396,111 +396,109 @@ export default function PriceTable({ peptides, resellers, prices }: PriceTablePr
       </div>
 
       {/* Desktop Basket Panel */}
-      {hasSelection && (
-        <div className="hidden md:block fixed right-0 top-0 bottom-0 w-80 bg-white border-l shadow-lg overflow-y-auto p-4">
-          <div className="flex items-center justify-between mb-4">
-            <h2 className="font-bold text-lg">Best Baskets</h2>
-            <button
-              onClick={() => setSelectedPeptides(new Set())}
-              className="text-gray-400 hover:text-gray-600"
-            >
-              Clear all
-            </button>
-          </div>
-          <p className="text-sm text-gray-500 mb-4">{selectedPeptides.size} peptide{selectedPeptides.size > 1 ? 's' : ''} selected</p>
-
-          <div className="space-y-4">
-            {baskets.map((basket, idx) => (
-              <div key={basket.reseller.id} className={`border rounded-lg p-4 ${idx === 0 ? 'border-green-500 bg-green-50' : 'border-gray-200'}`}>
-                <div className="flex items-center gap-2 mb-2">
-                  {idx === 0 && <span className="bg-green-500 text-white text-xs px-2 py-0.5 rounded">Best</span>}
-                  <span className="font-semibold">{basket.reseller.name}</span>
-                </div>
-                <div className="text-2xl font-bold text-gray-900 mb-3">
-                  {formatPrice(basket.total)}
-                </div>
-                <div className="space-y-1 text-sm">
-                  {basket.items.map(({ peptide, price }) => (
-                    <div key={peptide.id} className="flex justify-between text-gray-600">
-                      <span>{peptide.name}</span>
-                      <span>{formatPrice(price.price_cents)}</span>
-                    </div>
-                  ))}
-                </div>
-                {basket.missingPeptides.length > 0 && (
-                  <div className="mt-2 pt-2 border-t">
-                    <p className="text-xs text-red-600">
-                      Missing: {basket.missingPeptides.map(p => p.name).join(', ')}
-                    </p>
-                  </div>
-                )}
-              </div>
-            ))}
-            {baskets.length === 0 && (
-              <p className="text-gray-500 text-sm">No prices available for selected peptides.</p>
-            )}
-          </div>
-        </div>
-      )}
-
-      {/* Mobile Basket Overlay */}
-      {showMobileBasket && (
-        <div className="md:hidden fixed inset-0 bg-black/50 z-50" onClick={() => setShowMobileBasket(false)}>
-          <div
-            className="absolute bottom-0 left-0 right-0 bg-white rounded-t-2xl max-h-[80vh] overflow-y-auto"
-            onClick={(e) => e.stopPropagation()}
+      <div className={`hidden md:block fixed right-0 top-24 bottom-0 w-80 bg-white border-l shadow-lg overflow-y-auto p-4 transition-transform duration-300 ease-in-out ${hasSelection ? 'translate-x-0' : 'translate-x-full'}`}>
+        <div className="flex items-center justify-between mb-4">
+          <h2 className="font-bold text-lg">Best Baskets</h2>
+          <button
+            onClick={() => setSelectedPeptides(new Set())}
+            className="text-gray-400 hover:text-gray-600"
           >
-            <div className="sticky top-0 bg-white border-b p-4 flex items-center justify-between">
-              <h2 className="font-bold text-lg">Best Baskets</h2>
-              <button onClick={() => setShowMobileBasket(false)} className="text-gray-400">
-                <CloseIcon />
-              </button>
-            </div>
-            <div className="p-4">
-              <p className="text-sm text-gray-500 mb-4">{selectedPeptides.size} peptide{selectedPeptides.size > 1 ? 's' : ''} selected</p>
+            Clear all
+          </button>
+        </div>
+        <p className="text-sm text-gray-500 mb-4">{selectedPeptides.size} peptide{selectedPeptides.size > 1 ? 's' : ''} selected</p>
 
-              <div className="space-y-4">
-                {baskets.map((basket, idx) => (
-                  <div key={basket.reseller.id} className={`border rounded-lg p-4 ${idx === 0 ? 'border-green-500 bg-green-50' : 'border-gray-200'}`}>
-                    <div className="flex items-center gap-2 mb-2">
-                      {idx === 0 && <span className="bg-green-500 text-white text-xs px-2 py-0.5 rounded">Best</span>}
-                      <span className="font-semibold">{basket.reseller.name}</span>
-                    </div>
-                    <div className="text-2xl font-bold text-gray-900 mb-3">
-                      {formatPrice(basket.total)}
-                    </div>
-                    <div className="space-y-1 text-sm">
-                      {basket.items.map(({ peptide, price }) => (
-                        <div key={peptide.id} className="flex justify-between text-gray-600">
-                          <span>{peptide.name}</span>
-                          <span>{formatPrice(price.price_cents)}</span>
-                        </div>
-                      ))}
-                    </div>
-                    {basket.missingPeptides.length > 0 && (
-                      <div className="mt-2 pt-2 border-t">
-                        <p className="text-xs text-red-600">
-                          Missing: {basket.missingPeptides.map(p => p.name).join(', ')}
-                        </p>
-                      </div>
-                    )}
+        <div className="space-y-4">
+          {baskets.map((basket, idx) => (
+            <div key={basket.reseller.id} className={`border rounded-lg p-4 ${idx === 0 ? 'border-green-500 bg-green-50' : 'border-gray-200'}`}>
+              <div className="flex items-center gap-2 mb-2">
+                {idx === 0 && <span className="bg-green-500 text-white text-xs px-2 py-0.5 rounded">Best</span>}
+                <span className="font-semibold">{basket.reseller.name}</span>
+              </div>
+              <div className="text-2xl font-bold text-gray-900 mb-3">
+                {formatPrice(basket.total)}
+              </div>
+              <div className="space-y-1 text-sm">
+                {basket.items.map(({ peptide, price }) => (
+                  <div key={peptide.id} className="flex justify-between text-gray-600">
+                    <span>{peptide.name}</span>
+                    <span>{formatPrice(price.price_cents)}</span>
                   </div>
                 ))}
               </div>
-
-              <button
-                onClick={() => {
-                  setSelectedPeptides(new Set())
-                  setShowMobileBasket(false)
-                }}
-                className="w-full mt-4 py-3 text-red-600 font-medium"
-              >
-                Clear Selection
-              </button>
+              {basket.missingPeptides.length > 0 && (
+                <div className="mt-2 pt-2 border-t">
+                  <p className="text-xs text-red-600">
+                    Missing: {basket.missingPeptides.map(p => p.name).join(', ')}
+                  </p>
+                </div>
+              )}
             </div>
+          ))}
+          {baskets.length === 0 && (
+            <p className="text-gray-500 text-sm">No prices available for selected peptides.</p>
+          )}
+        </div>
+      </div>
+
+      {/* Mobile Basket Overlay */}
+      <div
+        className={`md:hidden fixed inset-0 z-50 transition-opacity duration-300 ${showMobileBasket ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}
+        onClick={() => setShowMobileBasket(false)}
+      >
+        <div className={`absolute inset-0 bg-black/50 transition-opacity duration-300 ${showMobileBasket ? 'opacity-100' : 'opacity-0'}`} />
+        <div
+          className={`absolute bottom-0 left-0 right-0 bg-white rounded-t-2xl max-h-[80vh] overflow-y-auto transition-transform duration-300 ease-out ${showMobileBasket ? 'translate-y-0' : 'translate-y-full'}`}
+          onClick={(e) => e.stopPropagation()}
+        >
+          <div className="sticky top-0 bg-white border-b p-4 flex items-center justify-between">
+            <h2 className="font-bold text-lg">Best Baskets</h2>
+            <button onClick={() => setShowMobileBasket(false)} className="text-gray-400">
+              <CloseIcon />
+            </button>
+          </div>
+          <div className="p-4">
+            <p className="text-sm text-gray-500 mb-4">{selectedPeptides.size} peptide{selectedPeptides.size > 1 ? 's' : ''} selected</p>
+            <div className="space-y-4">
+              {baskets.map((basket, idx) => (
+                <div key={basket.reseller.id} className={`border rounded-lg p-4 ${idx === 0 ? 'border-green-500 bg-green-50' : 'border-gray-200'}`}>
+                  <div className="flex items-center gap-2 mb-2">
+                    {idx === 0 && <span className="bg-green-500 text-white text-xs px-2 py-0.5 rounded">Best</span>}
+                    <span className="font-semibold">{basket.reseller.name}</span>
+                  </div>
+                  <div className="text-2xl font-bold text-gray-900 mb-3">
+                    {formatPrice(basket.total)}
+                  </div>
+                  <div className="space-y-1 text-sm">
+                    {basket.items.map(({ peptide, price }) => (
+                      <div key={peptide.id} className="flex justify-between text-gray-600">
+                        <span>{peptide.name}</span>
+                        <span>{formatPrice(price.price_cents)}</span>
+                      </div>
+                    ))}
+                  </div>
+                  {basket.missingPeptides.length > 0 && (
+                    <div className="mt-2 pt-2 border-t">
+                      <p className="text-xs text-red-600">
+                        Missing: {basket.missingPeptides.map(p => p.name).join(', ')}
+                      </p>
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+            <button
+              onClick={() => {
+                setSelectedPeptides(new Set())
+                setShowMobileBasket(false)
+              }}
+              className="w-full mt-4 py-3 text-red-600 font-medium"
+            >
+              Clear Selection
+            </button>
           </div>
         </div>
-      )}
+      </div>
     </div>
   )
 }
