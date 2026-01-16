@@ -138,22 +138,36 @@ export default async function AggregatorPage() {
                             )}
                             <span className="text-sm text-gray-600">{reseller.name}</span>
                           </div>
-                          <div className="text-right">
+                          <div className="text-right flex-1 ml-4">
                             {priceData ? (
-                              <div className="space-y-0.5">
-                                <div className="font-semibold text-gray-900">
+                              <div className="space-y-1">
+                                <div className="font-semibold text-gray-900 text-lg">
                                   {priceData.product_url ? (
                                     <a href={priceData.product_url} target="_blank" rel="noopener noreferrer" className="hover:text-blue-600">
                                       {formatPrice(priceData.price_cents)}
                                     </a>
                                   ) : formatPrice(priceData.price_cents)}
                                 </div>
-                                <div className="flex flex-wrap justify-end gap-1">
-                                  {priceData.sale_info && <span className="text-red-600"><SaleIcon /></span>}
-                                  {priceData.bulk_pricing && <span className="text-purple-600"><BulkIcon /></span>}
-                                  {priceData.shipping && <span className="text-blue-500"><ShippingIcon /></span>}
-                                  {priceData.return_policy && <span className="text-gray-500"><ReturnIcon /></span>}
-                                </div>
+                                {priceData.sale_info && (
+                                  <div className="text-xs text-red-600 flex items-center justify-end">
+                                    <SaleIcon />{priceData.sale_info}
+                                  </div>
+                                )}
+                                {priceData.bulk_pricing && (
+                                  <div className="text-xs text-purple-600 flex items-center justify-end">
+                                    <BulkIcon />{priceData.bulk_pricing}
+                                  </div>
+                                )}
+                                {priceData.shipping && (
+                                  <div className="text-xs text-blue-500 flex items-center justify-end">
+                                    <ShippingIcon />{priceData.shipping}
+                                  </div>
+                                )}
+                                {priceData.return_policy && (
+                                  <div className="text-xs text-gray-500 flex items-center justify-end">
+                                    <ReturnIcon />{priceData.return_policy}
+                                  </div>
+                                )}
                               </div>
                             ) : (
                               <span className="text-gray-300">-</span>
