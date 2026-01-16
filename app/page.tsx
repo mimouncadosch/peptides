@@ -1,5 +1,4 @@
 import { getPeptides, getResellers, getLatestPrices } from '@/lib/db'
-import Link from 'next/link'
 import Image from 'next/image'
 
 // Revalidate data every 5 minutes
@@ -84,17 +83,17 @@ export default async function AggregatorPage() {
   return (
     <div className="min-h-screen p-8 flex flex-col">
       <header className="mb-8">
-        <div className="flex justify-between items-center">
+        <div className="flex justify-between items-start">
           <div>
-            <h1 className="text-3xl font-bold text-gray-900">Peptide Price Aggregator</h1>
-            <p className="text-gray-600 mt-1">Compare prices across resellers</p>
+            <h1 className="text-3xl font-bold text-gray-900">PeptideWatch</h1>
+            <p className="text-gray-600 mt-1">We find prices across peptide resellers</p>
           </div>
-          <Link
-            href="/learn"
-            className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
-          >
-            Learn about Peptides
-          </Link>
+          <div className="flex items-center gap-4 text-xs text-gray-500">
+            <span className="flex items-center text-red-600"><SaleIcon />Sale</span>
+            <span className="flex items-center text-purple-600"><BulkIcon />Bulk</span>
+            <span className="flex items-center text-blue-500"><ShippingIcon />Ship</span>
+            <span className="flex items-center text-gray-500"><ReturnIcon />Returns</span>
+          </div>
         </div>
       </header>
 
@@ -143,9 +142,9 @@ export default async function AggregatorPage() {
                 </tr>
               </thead>
               <tbody>
-                {peptides.map((peptide, idx) => (
-                  <tr key={peptide.id} className={idx % 2 === 0 ? 'bg-white' : 'bg-gray-50'}>
-                    <td className={`sticky left-0 z-10 p-4 border-b w-[200px] ${idx % 2 === 0 ? 'bg-white' : 'bg-gray-50'}`}>
+                {peptides.map((peptide) => (
+                  <tr key={peptide.id} className="group bg-white">
+                    <td className="sticky left-0 z-10 p-4 border-b w-[200px] bg-white group-hover:bg-gray-50">
                       <div className="font-medium text-gray-900">{peptide.name}</div>
                       {peptide.full_name && (
                         <div className="text-xs text-gray-500 mt-1">{peptide.full_name}</div>
@@ -154,7 +153,7 @@ export default async function AggregatorPage() {
                     {resellers.map((reseller) => {
                       const priceData = priceMap.get(peptide.id)?.get(reseller.id)
                       return (
-                        <td key={reseller.id} className="p-4 border-b w-[180px] align-top">
+                        <td key={reseller.id} className="p-4 border-b w-[180px] align-top group-hover:bg-gray-50">
                           {priceData ? (
                             <div className="space-y-1">
                               <div className="font-semibold text-gray-900 text-lg">
@@ -213,9 +212,10 @@ export default async function AggregatorPage() {
         )}
       </main>
 
-      <footer className="mt-8 text-center text-sm text-gray-500 border-t pt-6">
-        <p className="mb-1">Prices are updated daily at 6:00 AM UTC</p>
-        <p>&copy; 2025 WithDrive, LLC. All rights reserved.</p>
+      <footer className="mt-8 text-center text-sm text-gray-300 bg-gray-800 py-6 -mx-8 -mb-8 px-8">
+        <p className="mb-1">Prices are updated twice daily</p>
+        <p className="mb-3">&copy; 2025 WithDrive, LLC. All rights reserved.</p>
+        <p className="text-xs text-gray-400">All products listed are for Research Use Only (RUO). Not for human consumption.</p>
       </footer>
     </div>
   )

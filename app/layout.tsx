@@ -3,7 +3,7 @@ import { Analytics } from '@vercel/analytics/next'
 import './globals.css'
 
 export const metadata: Metadata = {
-  title: 'Peptide Price Aggregator',
+  title: 'PeptideWatch',
   description: 'Compare peptide prices across resellers',
 }
 
