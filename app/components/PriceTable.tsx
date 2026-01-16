@@ -397,7 +397,7 @@ export default function PriceTable({ peptides, resellers, prices }: PriceTablePr
 
       {/* Desktop Basket Panel */}
       <div className={`hidden md:block fixed right-0 top-24 bottom-0 w-80 bg-white border-l shadow-lg overflow-y-auto transition-transform duration-300 ease-in-out ${hasSelection ? 'translate-x-0' : 'translate-x-full'}`}>
-        <div className="flex items-center justify-between p-4 bg-gray-800 text-white">
+        <div className="flex items-center justify-between p-4 bg-gray-800 text-white rounded-t-lg">
           <h2 className="font-bold text-lg">Best Baskets</h2>
           <button
             onClick={() => setSelectedPeptides(new Set())}
@@ -453,7 +453,7 @@ export default function PriceTable({ peptides, resellers, prices }: PriceTablePr
           className={`absolute bottom-0 left-0 right-0 bg-white rounded-t-2xl max-h-[80vh] overflow-y-auto transition-transform duration-300 ease-out ${showMobileBasket ? 'translate-y-0' : 'translate-y-full'}`}
           onClick={(e) => e.stopPropagation()}
         >
-          <div className="sticky top-0 bg-gray-800 text-white p-4 flex items-center justify-between">
+          <div className="sticky top-0 bg-gray-800 text-white p-4 flex items-center justify-between rounded-t-2xl">
             <h2 className="font-bold text-lg">Best Baskets</h2>
             <button onClick={() => setShowMobileBasket(false)} className="text-gray-300 hover:text-white">
               <CloseIcon />
