@@ -25,11 +25,32 @@ const PEPTIDES = [
 
 // Initial resellers data
 const RESELLERS = [
+  // Original resellers
   { id: 'peptide-sciences', name: 'Peptide Sciences', base_url: 'https://www.peptidesciences.com' },
   { id: 'swiss-chems', name: 'Swiss Chems', base_url: 'https://swisschems.is' },
-  { id: 'amino-asylum', name: 'Amino Asylum', base_url: 'https://aminoasylum.shop' },
   { id: 'purerawz', name: 'PureRawz', base_url: 'https://www.purerawz.co' },
   { id: 'biotech-peptides', name: 'Biotech Peptides', base_url: 'https://biotechpeptides.com' },
+  // Additional resellers
+  { id: 'limitless-nootropics', name: 'Limitless Life Nootropics', base_url: 'https://limitlesslifenootropics.com' },
+  { id: 'core-peptides', name: 'Core Peptides', base_url: 'https://www.corepeptides.com' },
+  { id: 'soma-chems', name: 'Soma Chems', base_url: 'https://somachems.com' },
+  { id: 'iron-peptides', name: 'Iron Peptides', base_url: 'https://ironpeptides.com' },
+  { id: 'peptide-source', name: 'Peptide Source', base_url: 'https://peptidesource.com' },
+  { id: 'amino-vault', name: 'AminoVault', base_url: 'https://aminovault.com' },
+  { id: 'biolongevity-labs', name: 'BioLongevity Labs', base_url: 'https://biolongevetylabs.com' },
+  { id: 'ascension-peptides', name: 'Ascension Peptides', base_url: 'https://ascensionpeptides.com' },
+  { id: 'particle-peptides', name: 'Particle Peptides', base_url: 'https://particlepeptides.com' },
+  { id: 'nextgen-peps', name: 'NextGenPeps', base_url: 'https://nextgenpeps.com' },
+  { id: 'nextchems', name: 'NextChems', base_url: 'https://nextchems.com' },
+  { id: 'paradigm-peptides', name: 'Paradigm Peptides', base_url: 'https://paradigmpeptides.com' },
+  { id: 'direct-peptides', name: 'Direct Peptides', base_url: 'https://directpeptides.com' },
+  { id: 'loti-labs', name: 'Loti Labs', base_url: 'https://lotilabs.com' },
+  { id: 'peptide-warehouse', name: 'Peptide Warehouse', base_url: 'https://peptidewarehouse.com' },
+  { id: 'extreme-peptides', name: 'Extreme Peptides', base_url: 'https://extremepeptides.com' },
+  { id: 'research-peptides', name: 'Research Peptides', base_url: 'https://researchpeptides.com' },
+  { id: 'usa-peptide', name: 'USA Peptide', base_url: 'https://usapeptide.com' },
+  { id: 'peptides-for-sale', name: 'Peptides For Sale', base_url: 'https://peptidesforsale.net' },
+  { id: 'blue-sky-peptide', name: 'Blue Sky Peptide', base_url: 'https://blueskypeptide.com' },
 ]
 
 // Initial prices
