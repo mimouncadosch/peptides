@@ -62,7 +62,7 @@ export default async function AggregatorPage() {
         <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-4">
           <div>
             <Image
-              src="/logos/peptide-watch.jpg"
+              src="/logos/peptide-watch.png"
               alt="PeptideWatch"
               width={300}
               height={168}
